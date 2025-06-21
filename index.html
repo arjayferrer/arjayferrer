@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work Louder</title>
+  <style>
+    body {
+      margin: 0;
+      height: 200vh;
+      background: linear-gradient(135deg, #8e44ad, #3498db);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
+
+    .frosted-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      margin: 1rem;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: white;
+      font-weight: bold;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-size: 1.2rem;
+    }
+
+    .menu-icon,
+    .cart-icon {
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .content {
+      margin-top: 120px;
+      padding: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body>
+  <div class="frosted-header">
+    <div class="logo">w+rk l●uder</div>
+    <div class="menu-icon">☰</div>
+    <div class="cart-icon">🛒</div>
+  </div>
+
+  <div class="content">
+    <div class="card">Scroll down to see the blur in effect behind this frosted header.</div>
+    <div class="card">This is a long section to allow you to scroll the page and test the header behavior.</div>
+    <div class="card">Keep scrolling — this confirms the backdrop-filter is active and the blur works on content behind.</div>
+    <div class="card">You can adjust the background or add elements behind the header to test it better.</div>
+    <div class="card">Done scrolling? You can now tweak spacing, shadow, and radius as needed.</div>
+  </div>
+</body>
+</html>
