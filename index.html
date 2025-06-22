@@ -68,6 +68,19 @@
       background: white;
       margin: 4px 0;
       border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
     }
 
     .nav-links {
@@ -240,7 +253,7 @@
     <img src="assets/af-logo.png" alt="AF Logo" />
   </div>
 
-  <div class="hamburger" onclick="toggleMenu()">
+  <div class="hamburger" onclick="toggleMenu(this)">
     <span></span>
     <span></span>
     <span></span>
@@ -278,8 +291,10 @@
   </div>
 
   <script>
-    function toggleMenu() {
-      document.getElementById("navMenu").classList.toggle("show");
+    function toggleMenu(el) {
+      const navMenu = document.getElementById("navMenu");
+      navMenu.classList.toggle("show");
+      el.classList.toggle("open");
     }
   </script>
 </body>
