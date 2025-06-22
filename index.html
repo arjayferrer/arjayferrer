@@ -150,6 +150,11 @@
     .content { flex:1; display:flex; flex-direction:column; justify-content:stretch; height:420px; }
     .card { background:rgba(255,255,255,.1); padding:.75rem; border-radius:1rem; margin-bottom:.75rem; height:100%; }
     @media(max-width:768px) {
+      /* Ensure hamburger is always visible and on top */
+      .hamburger {
+        display: flex !important;
+        z-index: 1006 !important;
+      }
       /* Show and layer hamburger above overlay */
       .hamburger {
         display: flex !important;
