@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arjay Ferrer</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -16,94 +17,206 @@
 
     .frosted-header {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 1rem 1.5rem;
-      margin: 1rem;
-      border-radius: 30px;
+      padding: 0.15rem 0.35rem;
+      margin: 1rem auto;
+      border-radius: 9999px;
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       color: white;
       font-weight: bold;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 999;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
 
     .logo {
-      font-size: 1.2rem;
+      position: fixed;
+      top: 1.5rem;
+      left: 1rem;
+      font-size: 1rem;
+      text-transform: lowercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 9999px;
+      background: #e6fb04;
+      color: black;
+      z-index: 1000;
     }
 
-    .menu-icon,
-    .cart-icon {
-      font-size: 1.4rem;
-      cursor: pointer;
+    .nav-links {
+      display: flex;
+      gap: 0.3rem;
+      background: transparent;
+      border-radius: 9999px;
+      padding: 0.10rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 0.45rem 1.4rem;
+      border-radius: 9999px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a.active {
+      background: #e6fb04;
+      color: black;
+    }
+
+    .nav-links a:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
+
+    .marquee-wrapper {
+      margin-top: 120px;
+      background: black;
+      overflow: hidden;
+      white-space: nowrap;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .marquee-wrapper::before,
+    .marquee-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 80px;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .marquee-wrapper::before {
+      left: 0;
+      background: linear-gradient(to right, black, transparent);
+    }
+
+    .marquee-wrapper::after {
+      right: 0;
+      background: linear-gradient(to left, black, transparent);
+    }
+
+    .marquee {
+      animation: scroll-left 15s linear infinite;
+      display: inline-block;
+      color: white;
+      font-size: 1rem;
+      font-family: 'DotGothic16', monospace;
+      padding-left: 100%;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .intro-section {
+      display: flex;
+      align-items: stretch;
+      gap: 2rem;
+      padding: 3rem 1.5rem 1rem;
+      margin-top: 60px;
+    }
+
+    .profile-picture img {
+      width: 280px;
+      height: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-picture img:hover {
+      transform: scale(1.02);
+    }
+
+    .profile-picture {
+      flex-shrink: 0;
+      display: flex;
+      align-items: stretch;
+      height: 420px;
     }
 
     .content {
-      margin-top: 120px;
-      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      height: 420px;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.1);
-      padding: 1.5rem;
+      padding: 0.75rem;
       border-radius: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.75rem;
       backdrop-filter: blur(4px);
+      height: 100%;
+      transition: box-shadow 0.3s;
     }
 
-.marquee-container {
-  margin-top: 120px;
-  width: 100%;
-  z-index: 1000; /* Put it above other elements */
-  background: black;
-  overflow: hidden;
-  white-space: nowrap;
-  height: 40px;
-  display: flex;
-  align-items: center;
+    .card:hover {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
 
-}
+    @media (max-width: 768px) {
+      .intro-section {
+        flex-direction: column;
+        align-items: center;
+      }
 
-.marquee {
-  animation: scroll-left 15s linear infinite;
-  display: inline-block;
-  color: white;
-  font-size: 1rem;
-  padding-left: 100%; /* ensure animation starts from right */
-}
+      .profile-picture,
+      .content {
+        height: auto;
+        width: 100%;
+      }
 
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
+      .profile-picture img {
+        width: 100%;
+        max-height: none;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="logo">arjay ferrer</div>
   <div class="frosted-header">
-    <div class="logo">arjay ferrer</div>
-    <div class="menu-icon"></div>
-    <div class="cart-icon"></div>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#">About</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Contact</a>
+    </div>
   </div>
-<div class="marquee-container">
-  <div class="marquee">
-    <span>– Arjay Ferrer • NetSuite Admin ⚙️ • Systems Thinker 🧠 • Clean Code Advocate 💻 • Streamlining Chaos to Clarity 🔧 • Digital Transformation in Motion 🚀 • No Buzzwords, Just Results. – </span>
+
+  <div class="marquee-wrapper">
+    <div class="marquee">
+      <span>– Arjay Ferrer • NetSuite Admin ⚙ • Systems Thinker 🧠 • Minimalist Aesthetic 🎯 • Purpose-Driven 📌 –</span>
+    </div>
   </div>
-</div>
 
+  <div class="intro-section">
+    <div class="profile-picture">
+      <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer" />
+    </div>
+    <div class="content">
+      <div class="card">Scroll down to see the blur in effect behind this frosted header.</div>
+    </div>
+  </div>
 
-  <div class="content">
-    <div class="card">Scroll down to see the blur in effect behind this frosted header.</div>
+  <div style="padding: 1.5rem;">
     <div class="card">This is a long section to allow you to scroll the page and test the header behavior.</div>
     <div class="card">Keep scrolling — this confirms the backdrop-filter is active and the blur works on content behind.</div>
     <div class="card">You can adjust the background or add elements behind the header to test it better.</div>
