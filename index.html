@@ -71,14 +71,11 @@
 }
 
 .marquee {
-  margin-top: 120px;
-  width: 100%;
+  animation: scroll-left 15s linear infinite;
   display: inline-block;
-  padding-left: 100%;
-  animation: marquee 15s linear infinite;
-  font-size: 1rem;
   color: white;
-  font-weight: 500;
+  font-size: 1rem;
+  padding-left: 100%; /* ensure animation starts from right */
 }
 
 @keyframes marquee {
