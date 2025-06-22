@@ -20,11 +20,12 @@
     .desktop-nav { display:flex; gap:.3rem; background:transparent; border-radius:9999px; padding:.1rem; }
     .desktop-nav a { color:white; text-decoration:none; padding:.45rem 1.4rem; border-radius:9999px; transition:all .2s; }
     .desktop-nav a.active{background:#e6fb04; color:black;}
-    .desktop-nav a:hover:not(.active){background:rgba(255,255,255,.25); color:white;}  
-    /* Hide mobile nav-links by default */
-    .nav-links { display: none; }  
-    /* Hide mobile overlay on desktop */  
-    .mobile-menu-overlay { display: none; }
+    .desktop-nav a:hover:not(.active){background:rgba(255,255,255,.25); color:white;}/* Scoping mobile nav to small screens only */
+@media (min-width: 769px) {
+  /* Hide mobile nav-links on desktop */
+  .nav-links { display: none; }
+  .mobile-menu-overlay { display: none; }
+}
     @media (max-width:768px) {
       .frosted-header { display: none !important; }
 
