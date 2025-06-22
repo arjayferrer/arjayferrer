@@ -59,23 +59,25 @@
 
 .marquee-container {
   position: relative;
-  z-index: 2;
-  background: transparent;
-  padding: 1rem 0;
+  z-index: 1000; /* Put it above other elements */
+  background: black;
   overflow: hidden;
   white-space: nowrap;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .marquee {
   display: inline-block;
-  animation: marquee 20s linear infinite;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
   font-size: 1rem;
-  color: #fff;
+  color: white;
   font-weight: 500;
 }
 
-
-@keyframes scroll-left {
+@keyframes marquee {
   0% {
     transform: translateX(0%);
   }
@@ -83,6 +85,7 @@
     transform: translateX(-100%);
   }
 }
+
   </style>
 </head>
 <body>
@@ -96,6 +99,7 @@
     <span>– Arjay Ferrer • NetSuite Admin ⚙️ • Systems Thinker 🧠 • Clean Code Advocate 💻 • Streamlining Chaos to Clarity 🔧 • Digital Transformation in Motion 🚀 • No Buzzwords, Just Results. – </span>
   </div>
 </div>
+
 
   <div class="content">
     <div class="card">Scroll down to see the blur in effect behind this frosted header.</div>
