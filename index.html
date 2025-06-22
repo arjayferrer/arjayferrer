@@ -58,7 +58,9 @@
     }
 
 .marquee-container {
-  position: relative;
+  position: fixed;
+  top: 120px;
+  width: 100%;
   z-index: 1000; /* Put it above other elements */
   background: black;
   overflow: hidden;
@@ -72,7 +74,7 @@
 
 .marquee {
   position: fixed;
-  top: 240px;
+  top: 120px;
   width: 100%;
   display: inline-block;
   padding-left: 100%;
