@@ -114,6 +114,15 @@
         display: flex;
       }
 
+      .frosted-header {
+        width: 100vw;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        padding: 0.5rem 1rem;
+        justify-content: flex-end;
+      }
+
       .nav-links {
         flex-direction: column;
         position: fixed;
@@ -128,11 +137,8 @@
         border-radius: 0;
         transform: translateX(100%);
         transition: transform 0.3s ease;
-        z-index: 998;
+        z-index: 1002;
         box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
-        align-items: flex-start;
-        justify-content: flex-start;
-        display: flex;
         gap: 1.5rem;
       }
 
@@ -276,12 +282,12 @@
   </div>
 
   <div class="frosted-header">
-    <div class="nav-links" id="navMenu">
+    <nav class="nav-links" id="navMenu">
       <a href="#" class="active">Home</a>
       <a href="#">About</a>
       <a href="#">Portfolio</a>
       <a href="#">Contact</a>
-    </div>
+    </nav>
   </div>
 
   <div class="marquee-wrapper">
