@@ -1,301 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arjay Ferrer</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      height: 200vh;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
-    }
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
 
-    .frosted-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.15rem 0.35rem;
-      margin: 1rem auto;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: white;
-      font-weight: bold;
-      position: fixed;
-      top: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
+  .nav-links {
+    flex-direction: column;
+    position: fixed;
+    top: 4.2rem;
+    right: 1rem; /* aligns to the hamburger */
+    left: auto;
+    transform: none; /* removes center alignment */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1rem;
+    border-radius: 1rem;
+    display: none;
+    z-index: 998;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
 
-    .logo {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1000;
-    }
+  .nav-links.show {
+    display: flex;
+  }
 
-    .logo img {
-      height: 120px;
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
+  .logo {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    .logo img:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 6px #e6fb04);
-    }
+  .nav-links a {
+    color: white; /* you can change this to black if you prefer contrast */
+  }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      position: fixed;
-      right: 1rem;
-      top: 1.2rem;
-      z-index: 1001;
-    }
+  .nav-links a:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.3);
+    color: black;
+  }
 
-    .hamburger span {
-      height: 3px;
-      width: 25px;
-      background: white;
-      margin: 4px 0;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 0.3rem;
-      background: transparent;
-      border-radius: 9999px;
-      padding: 0.10rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      padding: 0.45rem 1.4rem;
-      border-radius: 9999px;
-      transition: all 0.2s;
-    }
-
-    .nav-links a.active {
-      background: #e6fb04;
-      color: black;
-    }
-
-    .nav-links a:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.25);
-      color: white;
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-
-      .nav-links {
-        flex-direction: column;
-        position: fixed;
-        top: 5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0,0,0,0.85);
-        padding: 1rem;
-        border-radius: 1rem;
-        display: none;
-        z-index: 998;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      }
-
-      .nav-links.show {
-        display: flex;
-      }
-
-      .logo {
-        left: 50%;
-        transform: translateX(-50%);
-      }
-    }
-
-    .marquee-wrapper {
-      margin-top: 120px;
-      background: black;
-      overflow: hidden;
-      white-space: nowrap;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .marquee-wrapper::before,
-    .marquee-wrapper::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 80px;
-      height: 100%;
-      z-index: 1;
-    }
-
-    .marquee-wrapper::before {
-      left: 0;
-      background: linear-gradient(to right, black, transparent);
-    }
-
-    .marquee-wrapper::after {
-      right: 0;
-      background: linear-gradient(to left, black, transparent);
-    }
-
-    .marquee {
-      animation: scroll-left 15s linear infinite;
-      display: inline-block;
-      color: white;
-      font-size: 1rem;
-      font-family: 'DotGothic16', monospace;
-      padding-left: 100%;
-    }
-
-    @keyframes scroll-left {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .intro-section {
-      display: flex;
-      align-items: stretch;
-      gap: 2rem;
-      padding: 3rem 1.5rem 1rem;
-      margin-top: 60px;
-    }
-
-    .profile-picture img {
-      width: 280px;
-      height: 100%;
-      max-height: 420px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 3px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-    }
-
-    .profile-picture img:hover {
-      transform: scale(1.02);
-    }
-
-    .profile-picture {
-      flex-shrink: 0;
-      display: flex;
-      align-items: stretch;
-      height: 420px;
-    }
-
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: stretch;
-      height: 420px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 0.75rem;
-      border-radius: 1rem;
-      margin-bottom: 0.75rem;
-      height: 100%;
-    }
-
-    @media (max-width: 768px) {
-      .intro-section {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .profile-picture,
-      .content {
-        height: auto;
-        width: 100%;
-      }
-
-      .profile-picture img {
-        width: 100%;
-        max-height: none;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="logo">
-    <img src="assets/af-logo.png" alt="AF Logo" />
-  </div>
-
-  <div class="hamburger" onclick="toggleMenu(this)">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <div class="frosted-header">
-    <div class="nav-links" id="navMenu">
-      <a href="#" class="active">Home</a>
-      <a href="#">About</a>
-      <a href="#">Portfolio</a>
-      <a href="#">Contact</a>
-    </div>
-  </div>
-
-  <div class="marquee-wrapper">
-    <div class="marquee">
-      <span>– Arjay Ferrer • NetSuite Admin ⚙ • Systems Thinker 🧠 • Minimalist Aesthetic 🎯 • Purpose-Driven 📌 –</span>
-    </div>
-  </div>
-
-  <div class="intro-section">
-    <div class="profile-picture">
-      <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer" />
-    </div>
-    <div class="content">
-      <div class="card">Scroll down to see the blur in effect behind this frosted header.</div>
-    </div>
-  </div>
-
-  <div style="padding: 1.5rem;">
-    <div class="card">This is a long section to allow you to scroll the page and test the header behavior.</div>
-    <div class="card">Keep scrolling — this confirms the backdrop-filter is active and the blur works on content behind.</div>
-    <div class="card">You can adjust the background or add elements behind the header to test it better.</div>
-    <div class="card">Done scrolling? You can now tweak spacing, shadow, and radius as needed.</div>
-  </div>
-
-  <script>
-    function toggleMenu(el) {
-      const navMenu = document.getElementById("navMenu");
-      navMenu.classList.toggle("show");
-      el.classList.toggle("open");
-    }
-  </script>
-</body>
-</html>
+  .nav-links a.active {
+    background: #e6fb04;
+    color: black;
+  }
+}
