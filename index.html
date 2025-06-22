@@ -149,13 +149,57 @@
     .profile-picture { flex-shrink:0; display:flex; align-items:stretch; height:420px; }
     .content { flex:1; display:flex; flex-direction:column; justify-content:stretch; height:420px; }
     .card { background:rgba(255,255,255,.1); padding:.75rem; border-radius:1rem; margin-bottom:.75rem; height:100%; }
-    @media(max-width:768px) {
-      /* Ensure hamburger is always visible and on top */
+    @media (max-width: 768px) {
+      /* Hide desktop header nav, show mobile hamburger */
+      .frosted-header { display: none !important; }
       .hamburger {
         display: flex !important;
-        z-index: 1006 !important;
+        flex-direction: column;
+        position: fixed;
+        top: 1.2rem;
+        right: 1rem;
+        cursor: pointer;
+        z-index: 1006;
       }
-      /* Show and layer hamburger above overlay */
+      .desktop-nav { display: none; }
+
+      /* Mobile menu overlay */
+      .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 75vw;
+        height: 100vh;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 1002;
+        display: flex;
+        flex-direction: column;
+      }
+      .mobile-menu-overlay.show {
+        transform: translateX(0);
+      }
+      .mobile-menu-overlay .nav-links {
+        display: flex;
+        flex-direction: column;
+        padding: 4rem 2rem;
+        gap: 1.5rem;
+      }
+      .mobile-menu-overlay .nav-links a {
+        color: white;
+        font-size: 1.25rem;
+        text-decoration: none;
+      }
+
+      /* Ensure toggle is above overlay */
+      .switch-container { z-index: 1005; }
+    }
+/* Show and layer hamburger above overlay */
       .hamburger {
         display: flex !important;
         z-index: 1006;
