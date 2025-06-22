@@ -7,59 +7,203 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    body { margin:0; height:200vh; background:linear-gradient(135deg,#667eea,#764ba2); font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; color:white; }
-    .frosted-header { display:flex; justify-content:center; align-items:center; padding:.15rem .35rem; margin:1rem auto; border-radius:9999px; background:rgba(255,255,255,0.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); color:white; font-weight:bold; position:fixed; top:1rem; left:50%; transform:translateX(-50%); z-index:999; box-shadow:0 8px 24px rgba(0,0,0,.15); }
-    .logo { position:fixed; top:1rem; left:1rem; z-index:1000; }
-    .logo img { height:120px; transition:transform .3s ease, filter .3s ease; }
-    .logo img:hover { transform:scale(1.05); filter:drop-shadow(0 0 6px #e6fb04); }
-    .hamburger { display:none; flex-direction:column; cursor:pointer; position:fixed; right:1rem; top:1.2rem; z-index:1003; }
-    .hamburger span { height:3px; width:25px; background:white; margin:4px 0; border-radius:2px; transition:all .3s ease; }
-    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-    .hamburger.open span:nth-child(2){opacity:0;}
-    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
-    .desktop-nav { display:flex; gap:.3rem; background:transparent; border-radius:9999px; padding:.1rem; }
-    .desktop-nav a { color:white; text-decoration:none; padding:.45rem 1.4rem; border-radius:9999px; transition:all .2s; }
-    .desktop-nav a.active{background:#e6fb04; color:black;}
-    .desktop-nav a:hover:not(.active){background:rgba(255,255,255,.25); color:white;}/* Scoping mobile nav to small screens only */
-@media (min-width: 769px) {
-  /* Hide mobile nav-links on desktop */
-  .nav-links { display: none; }
-  .mobile-menu-overlay { display: none; }
-}
-    @media (max-width:768px) {
-      .frosted-header { display: none !important; }
-
-      .hamburger{display:flex;}
-      .frosted-header{width:100vw; left:0; transform:none; border-radius:0; padding:.5rem 1rem; justify-content:center;}
-      .desktop-nav{display:none;}
-      .mobile-menu-overlay{position:fixed; top:0; /* slide in from right: reset position */ right:0; width:75vw; height:100vh; background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background-clip:padding-box; -webkit-background-clip:padding-box; transform:translateX(100%); transition:transform .3s ease; z-index:1002; overflow:hidden; display:flex; flex-direction:column;}
-      .mobile-menu-overlay.show{transform:translateX(0);}
-      .mobile-menu-overlay .nav-links{display:flex; flex-direction:column; padding:4rem 2rem; height:100%; gap:1.5rem; overflow-y:auto;}
-      .mobile-menu-overlay .nav-links a{color:white; font-size:1.25rem; text-decoration:none;}
+    /* Base body styles */
+    body {
+      margin: 0;
+      height: 200vh;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      position: relative;
+      overflow-x: hidden;
     }
-    .marquee-wrapper{margin-top:120px; background:black; overflow:hidden; white-space:nowrap; height:40px; display:flex; align-items:center; position:relative;}
-    .marquee-wrapper::before, .marquee-wrapper::after{content:''; position:absolute; top:0; width:80px; height:100%; z-index:1;}
-    .marquee-wrapper::before{left:0; background:linear-gradient(to right, black, transparent);}
-    .marquee-wrapper::after{right:0; background:linear-gradient(to left, black, transparent);}
-    .marquee{animation:scroll-left 30s linear infinite; display:inline-block; color:white; font-size:1rem; font-family:'DotGothic16',monospace; padding-left:100%;}
-    @keyframes scroll-left{0%{transform:translateX(0%);}100%{transform:translateX(-100%);}}
-    .intro-section{display:flex; align-items:stretch; gap:2rem; padding:3rem 1.5rem 1rem; margin-top:60px;}
-    .profile-picture img{width:280px; height:100%; max-height:420px; object-fit:cover; border-radius:12px; border:3px solid rgba(255,255,255,.4); box-shadow:0 4px 20px rgba(0,0,0,.3); transition:transform .3s ease;}
-    .profile-picture img:hover{transform:scale(1.02);}
-    .profile-picture{flex-shrink:0; display:flex; align-items:stretch; height:420px;}
-    .content{flex:1; display:flex; flex-direction:column; justify-content:stretch; height:420px;}
-    .card{background:rgba(255,255,255,.1); padding:.75rem; border-radius:1rem; margin-bottom:.75rem; height:100%;}
-    @media (max-width:768px){.intro-section{flex-direction:column; align-items:center;} .profile-picture, .content{height:auto; width:100%;} .profile-picture img{width:100%; max-height:none;}}
+    /* dual-layer background for fade */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      transition: opacity 1s ease;
+    }
+    /* Creative gradient layer */
+    body::before {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      opacity: 1;
+    }
+    /* Professional gradient layer */
+    body::after {
+      background: linear-gradient(135deg, #888, #aaa);
+      opacity: 0;
+    }
+    /* Toggle layers on mode change */
+    body.professional-mode::before { opacity: 0; }
+    body.professional-mode::after  { opacity: 1; }
+
+    /* Frosted header and nav */
+    .frosted-header { display:flex; justify-content:center; align-items:center; padding:.15rem .35rem; margin:1rem auto; border-radius:9999px; background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); position:fixed; top:1rem; left:50%; transform:translateX(-50%); z-index:999; box-shadow:0 8px 24px rgba(0,0,0,.15); }
+    .logo { position:fixed; top:1rem; left:1rem; z-index:1000; }
+    .logo img { height:120px; transition:transform .3s,filter .3s; }
+    .logo img:hover { transform:scale(1.05); filter:drop-shadow(0 0 6px #e6fb04); }
+    /* Desktop nav override */
+    .frosted-header .desktop-nav { display:flex; gap:.3rem; }
+    .frosted-header .desktop-nav a { color:white; text-decoration:none; padding:.45rem 1.4rem; border-radius:9999px; transition:all .2s; }
+    .frosted-header .desktop-nav a.active { background:#e6fb04; color:black; }
+    .frosted-header .desktop-nav a:hover:not(.active) { background:rgba(255,255,255,.25); }
+
+    /* Mobile overlay menu */
+    @media (min-width: 769px) {
+      .nav-links,
+      .mobile-menu-overlay { display: none; }
+    }
+    @media (max-width: 768px) {
+      .frosted-header { display: none !important; }
+      .hamburger { display: flex; }
+      .desktop-nav { display: none; }
+      .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 75vw;
+        height: 100vh;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 1002;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .mobile-menu-overlay.show {
+        transform: translateX(0);
+      }
+      .mobile-menu-overlay .nav-links {
+        display: flex;
+        flex-direction: column;
+        padding: 4rem 2rem;
+        gap: 1.5rem;
+      }
+      .mobile-menu-overlay .nav-links a {
+        color: white;
+        font-size: 1.25rem;
+        text-decoration: none;
+      }
+      /* Ensure toggle is above overlay */
+      .switch-container { z-index: 1005; }
+    }
+
+    /* Marquee */
+    .marquee-wrapper { margin-top:120px; background:black; overflow:hidden; white-space:nowrap; height:40px; display:flex; align-items:center; position:relative; }
+    .marquee-wrapper::before, .marquee-wrapper::after { content:''; position:absolute; top:0; width:80px; height:100%; z-index:1; }
+    .marquee-wrapper::before { left:0; background:linear-gradient(to right,black,transparent); }
+    .marquee-wrapper::after { right:0; background:linear-gradient(to left,black,transparent); }
+    .marquee { animation:scroll-left 30s linear infinite; display:inline-block; color:white; font-size:1rem; font-family:'DotGothic16',monospace; padding-left:100%; }
+    @keyframes scroll-left { 0%{transform:translateX(0%);}100%{transform:translateX(-100%);} }
+
+    /* Switch styles */
+    .switch-container {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      width: 100px;
+      height: 40px;
+      border-radius: 50px;
+      background: #d6d6d6;
+      box-shadow: inset -8px -8px 16px #fff, inset 8px 8px 16px #b0b0b0;
+      padding: 5px;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin: 0;
+      z-index: 1003; /* above overlay */
+    }
+    /* Paint icon indicator */
+    .switch-container::after {
+      content: '🎨';
+      position: absolute;
+      top: 50%;
+      left: -1.5rem;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      z-index: 1004;
+    }
+    .switch-container::before { content:""; position:absolute; inset:0; border-radius:50px; background:linear-gradient(to right,#03feff,#ff00ff); opacity:0; transition:opacity .5s; }
+    .toggle-checkbox { display:none; }
+    .switch { position:relative; display:block; width:100%; height:100%; border-radius:50px; cursor:pointer; background:inherit; z-index:1; }
+    .switch::before { content:""; position:absolute; inset:0; background:linear-gradient(to right,#03feff,#ff00ff); border-radius:50px; opacity:0; transition:opacity .5s; z-index:-1; }
+    .toggle { position:absolute; width:50%; height:100%; background:linear-gradient(145deg,#d9d9d9,#bfbfbf); border-radius:50px; top:0; left:0; box-shadow:-4px -4px 8px #fff,4px 4px 8px #b0b0b0; transition:all .3s; display:flex; align-items:center; justify-content:center; z-index:2; }
+    .led { width:10px; height:10px; background:grey; border-radius:50%; box-shadow:0 0 10px 2px rgba(0,0,0,.2); transition:all .3s; }
+    .toggle-checkbox:checked ~ .switch-container::before { opacity:1; }
+    .toggle-checkbox:checked + .switch::before { opacity:1; }
+    .toggle-checkbox:checked + .switch .toggle { left:50%; background:linear-gradient(145deg,#cfcfcf,#a9a9a9); box-shadow:-4px -4px 8px #fff,4px 4px 8px #8a8a8a; }
+    .toggle-checkbox:checked + .switch .led { background:yellow; box-shadow:0 0 15px 4px yellow; }
+    .switch:hover .toggle { box-shadow:-4px -4px 12px #fff,4px 4px 12px #9b9b9b; }
+
+    /* Sections and cards */
+    .intro-section, .professional-section { display:flex; align-items:stretch; gap:2rem; padding:3rem 1.5rem 1rem; margin-top:60px; }
+    .professional-section { display:none; }
+    .profile-picture img { width:280px; height:100%; max-height:420px; object-fit:cover; border-radius:12px; border:3px solid rgba(255,255,255,.4); box-shadow:0 4px 20px rgba(0,0,0,.3); transition:transform .3s; }
+    .profile-picture img:hover { transform:scale(1.02); }
+    .profile-picture { flex-shrink:0; display:flex; align-items:stretch; height:420px; }
+    .content { flex:1; display:flex; flex-direction:column; justify-content:stretch; height:420px; }
+    .card { background:rgba(255,255,255,.1); padding:.75rem; border-radius:1rem; margin-bottom:.75rem; height:100%; }
+    @media(max-width:768px) { .intro-section, .professional-section { flex-direction:column; align-items:center; } .profile-picture, .content { width:100%; height:auto; } .profile-picture img { width:100%; max-height:none; } }
   </style>
 </head>
-<body>
+<body class="professional-mode">
   <div class="logo"><img src="assets/af-logo.png" alt="AF Logo"/></div>
   <div class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></div>
   <div class="frosted-header"><nav class="desktop-nav"><a href="#" class="active">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
-  <div class="mobile-menu-overlay" id="mobileOverlay"><nav class="nav-links"><a href="#" class="active">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
+  <div class="mobile-menu-overlay" id="mobileOverlay"><nav class="nav-links"><a href="#">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
+
   <div class="marquee-wrapper"><div class="marquee"><span>– Arjay Ferrer • NetSuite Admin ⚙ • Systems Thinker 🧠 • Minimalist Aesthetic 🎯 • Purpose-Driven 📌 –</span></div></div>
-  <div class="intro-section"><div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/></div><div class="content"><div class="card">Scroll down to see the blur in effect behind this frosted header.</div></div></div>
+
+  <div class="switch-container">
+    <input class="toggle-checkbox" id="toggle-switch" type="checkbox" />
+    <label class="switch" for="toggle-switch"><div class="toggle"><div class="led"></div></div></label>
+  </div>
+
+  <div class="intro-section" style="display:none;">
+    <div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/></div>
+    <div class="content"><div class="card">Scroll down to see the blur in effect behind this frosted header.</div></div>
+  </div>
+  <div class="professional-section" style="display:flex;">
+    <div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Professional Bio"/></div>
+    <div class="content"><div class="card">Certifications, skills, and work history displayed here.</div></div>
+  </div>
+
   <div style="padding:1.5rem;"><div class="card">This is a long section to allow you to scroll the page and test the header behavior.</div><div class="card">Keep scrolling — this confirms the backdrop-filter is active and the blur works on content behind.</div><div class="card">You can adjust the background or add elements behind the header to test it better.</div><div class="card">Done scrolling? You can now tweak spacing, shadow, and radius as needed.</div></div>
-  <script>function toggleMenu(el){const overlay=document.getElementById('mobileOverlay');const header=document.querySelector('.frosted-header');overlay.classList.toggle('show');el.classList.toggle('open');header.classList.toggle('hidden');}</script>
+
+  <script>
+    function toggleMenu(el) {
+      const overlay = document.getElementById('mobileOverlay');
+      overlay.classList.toggle('show');
+      el.classList.toggle('open');
+    }
+    // Listen to toggle-switch instead of missing buttons
+    const toggleSwitch = document.getElementById('toggle-switch');
+    const creativeSection = document.querySelector('.intro-section');
+    const professionalSection = document.querySelector('.professional-section');
+    if (toggleSwitch) {
+      toggleSwitch.addEventListener('change', () => {
+        // Inverted logic: unchecked = professional, checked = creative
+        if (!toggleSwitch.checked) {
+          // unchecked: professional mode
+          document.body.classList.add('professional-mode');
+          document.body.classList.remove('creative-mode');
+          professionalSection.style.display = 'flex';
+          creativeSection.style.display = 'none';
+        } else {
+          // checked: creative mode
+          document.body.classList.add('creative-mode');
+          document.body.classList.remove('professional-mode');
+          creativeSection.style.display = 'flex';
+          professionalSection.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
