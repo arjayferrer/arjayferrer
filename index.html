@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,7 @@
     left: 1rem;
     z-index: 1000;
   }
-    .logo img { height:40px; transition:transform .3s,filter .3s; }
+    .logo img { height:120px; transition:transform .3s,filter .3s; }
     .logo img:hover { transform:scale(1.05); filter:drop-shadow(0 0 6px #e6fb04); }
     /* Desktop nav override */
     .frosted-header .desktop-nav { display:flex; gap:.3rem; }
@@ -75,19 +76,6 @@
     /* Mobile overlay menu */
     @media (min-width: 769px) {
       .nav-links,
-      .mobile-menu-overlay { display: none; }
-    }
-    @media (max-width: 768px) {
-      .frosted-header { display: none !important; }
-      .hamburger {
-        display: flex !important;
-        position: fixed;
-        top: 1.2rem;
-        right: 1rem;
-        flex-direction: column;
-        z-index: 1006;
-      }
-      .desktop-nav { display: none; }
       .mobile-menu-overlay {
         position: fixed;
         top: 0;
@@ -95,6 +83,13 @@
         width: 75vw;
         height: 100vh;
         background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        /* rounded corners on the left */
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         transform: translateX(100%);
@@ -192,7 +187,7 @@
   </style>
 </head>
 <body class="professional-mode">
-  <div class="logo"><img src="assets/af-logo1.png" alt="AF Logo"/></div>
+  <div class="logo"><img src="assets/af-logo.png" alt="AF Logo"/></div>
   <div class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></div>
   <div class="frosted-header"><nav class="desktop-nav"><a href="#" class="active">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
   <div class="mobile-menu-overlay" id="mobileOverlay"><nav class="nav-links"><a href="#">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
