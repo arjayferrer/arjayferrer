@@ -52,6 +52,24 @@
       filter: drop-shadow(0 0 6px #e6fb04);
     }
 
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      position: fixed;
+      right: 1rem;
+      top: 1.2rem;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
     .nav-links {
       display: flex;
       gap: 0.3rem;
@@ -76,6 +94,27 @@
     .nav-links a:hover:not(.active) {
       background: rgba(255, 255, 255, 0.25);
       color: white;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        position: fixed;
+        top: 80px;
+        right: 1rem;
+        background: rgba(0,0,0,0.8);
+        padding: 1rem;
+        border-radius: 1rem;
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
     }
 
     .marquee-wrapper {
@@ -192,8 +231,15 @@
   <div class="logo">
     <img src="assets/af-logo.png" alt="AF Logo" />
   </div>
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <div class="frosted-header">
-    <div class="nav-links">
+    <div class="nav-links" id="navMenu">
       <a href="#" class="active">Home</a>
       <a href="#">About</a>
       <a href="#">Portfolio</a>
@@ -222,5 +268,11 @@
     <div class="card">You can adjust the background or add elements behind the header to test it better.</div>
     <div class="card">Done scrolling? You can now tweak spacing, shadow, and radius as needed.</div>
   </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+  </script>
 </body>
 </html>
