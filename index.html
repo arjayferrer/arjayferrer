@@ -26,6 +26,8 @@
     /* Hide mobile overlay on desktop */  
     .mobile-menu-overlay { display: none; }
     @media (max-width:768px) {
+      .frosted-header.hidden { display: none; }
+
       .hamburger{display:flex;}
       .frosted-header{width:100vw; left:0; transform:none; border-radius:0; padding:.5rem 1rem; justify-content:center;}
       .desktop-nav{display:none;}
@@ -57,6 +59,6 @@
   <div class="marquee-wrapper"><div class="marquee"><span>– Arjay Ferrer • NetSuite Admin ⚙ • Systems Thinker 🧠 • Minimalist Aesthetic 🎯 • Purpose-Driven 📌 –</span></div></div>
   <div class="intro-section"><div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/></div><div class="content"><div class="card">Scroll down to see the blur in effect behind this frosted header.</div></div></div>
   <div style="padding:1.5rem;"><div class="card">This is a long section to allow you to scroll the page and test the header behavior.</div><div class="card">Keep scrolling — this confirms the backdrop-filter is active and the blur works on content behind.</div><div class="card">You can adjust the background or add elements behind the header to test it better.</div><div class="card">Done scrolling? You can now tweak spacing, shadow, and radius as needed.</div></div>
-  <script>function toggleMenu(el){const overlay=document.getElementById('mobileOverlay');overlay.classList.toggle('show');el.classList.toggle('open');}</script>
+  <script>function toggleMenu(el){const overlay=document.getElementById('mobileOverlay');const header=document.querySelector('.frosted-header');overlay.classList.toggle('show');el.classList.toggle('open');header.classList.toggle('hidden');}</script>
 </body>
 </html>
