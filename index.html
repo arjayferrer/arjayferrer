@@ -74,46 +74,55 @@
     }
 
     /* Mobile overlay menu */
-    @media (min-width: 769px) {
-      .nav-links,
-      .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 75vw;
-        height: 100vh;
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        /* rounded corners on the left */
-        border-top-left-radius: 1rem;
-        border-bottom-left-radius: 1rem;
-        background-clip: padding-box;
-        -webkit-background-clip: padding-box;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        z-index: 1002;
-        display: flex;
-        flex-direction: column;
-      }
-      .mobile-menu-overlay.show {
-        transform: translateX(0);
-      }
-      .mobile-menu-overlay .nav-links {
-        display: flex;
-        flex-direction: column;
-        padding: 4rem 2rem;
-        gap: 1.5rem;
-      }
-      .mobile-menu-overlay .nav-links a {
-        color: white;
-        font-size: 1.25rem;
-        text-decoration: none;
-      }
-      .switch-container { z-index: 1005; }
-    }
+@media (max-width: 768px) {
+  .frosted-header,
+  .desktop-nav {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+    position: fixed;
+    top: 1.2rem;
+    right: 1rem;
+    z-index: 1006;
+  }
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 75vw;
+    height: 100vh;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-menu-overlay.show {
+    transform: translateX(0);
+  }
+  .mobile-menu-overlay .nav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 2rem;
+    gap: 1.5rem;
+  }
+  .mobile-menu-overlay .nav-links a {
+    color: white;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+  .switch-container {
+    z-index: 1005;
+  }
+}
 
     /* Hamburger open animation */
     .hamburger.open span:nth-child(1) {
