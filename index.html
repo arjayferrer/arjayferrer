@@ -50,6 +50,23 @@
     .frosted-header .desktop-nav a.active { background:#e6fb04; color:black; }
     .frosted-header .desktop-nav a:hover:not(.active) { background:rgba(255,255,255,.25); }
 
+    /* Base hamburger (hidden by default) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
     /* Mobile overlay menu */
     @media (min-width: 769px) {
       .nav-links,
@@ -57,7 +74,14 @@
     }
     @media (max-width: 768px) {
       .frosted-header { display: none !important; }
-      .hamburger { display: flex; }
+      .hamburger {
+        display: flex !important;
+        position: fixed;
+        top: 1.2rem;
+        right: 1rem;
+        flex-direction: column;
+        z-index: 1006;
+      }
       .desktop-nav { display: none; }
       .mobile-menu-overlay {
         position: fixed;
@@ -68,12 +92,9 @@
         background: rgba(255,255,255,0.15);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        background-clip: padding-box;
-        -webkit-background-clip: padding-box;
         transform: translateX(100%);
         transition: transform 0.3s ease;
         z-index: 1002;
-        overflow: hidden;
         display: flex;
         flex-direction: column;
       }
@@ -91,8 +112,18 @@
         font-size: 1.25rem;
         text-decoration: none;
       }
-      /* Ensure toggle is above overlay */
       .switch-container { z-index: 1005; }
+    }
+
+    /* Hamburger open animation */
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
     }
 
     /* Marquee */
@@ -117,9 +148,8 @@
       box-sizing: border-box;
       overflow: hidden;
       margin: 0;
-      z-index: 1003; /* above overlay */
+      z-index: 1003;
     }
-    /* Paint icon indicator */
     .switch-container::after {
       content: '🎨';
       position: absolute;
@@ -150,60 +180,10 @@
     .content { flex:1; display:flex; flex-direction:column; justify-content:stretch; height:420px; }
     .card { background:rgba(255,255,255,.1); padding:.75rem; border-radius:1rem; margin-bottom:.75rem; height:100%; }
     @media (max-width: 768px) {
-      /* Hide desktop header nav, show mobile hamburger */
-      .frosted-header { display: none !important; }
-      .hamburger {
-        display: flex !important;
-        flex-direction: column;
-        position: fixed;
-        top: 1.2rem;
-        right: 1rem;
-        cursor: pointer;
-        z-index: 1006;
-      }
-      .desktop-nav { display: none; }
-
-      /* Mobile menu overlay */
-      .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 75vw;
-        height: 100vh;
-        background: rgba(255,255,255,0.15);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        background-clip: padding-box;
-        -webkit-background-clip: padding-box;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        z-index: 1002;
-        display: flex;
-        flex-direction: column;
-      }
-      .mobile-menu-overlay.show {
-        transform: translateX(0);
-      }
-      .mobile-menu-overlay .nav-links {
-        display: flex;
-        flex-direction: column;
-        padding: 4rem 2rem;
-        gap: 1.5rem;
-      }
-      .mobile-menu-overlay .nav-links a {
-        color: white;
-        font-size: 1.25rem;
-        text-decoration: none;
-      }
-
-      /* Ensure toggle is above overlay */
-      .switch-container { z-index: 1005; }
+      .intro-section, .professional-section { flex-direction:column; align-items:center; }
+      .profile-picture, .content { width:100%; height:auto; }
+      .profile-picture img { width:100%; max-height:none; }
     }
-/* Show and layer hamburger above overlay */
-      .hamburger {
-        display: flex !important;
-        z-index: 1006;
-      } .intro-section, .professional-section { flex-direction:column; align-items:center; } .profile-picture, .content { width:100%; height:auto; } .profile-picture img { width:100%; max-height:none; } }
   </style>
 </head>
 <body class="professional-mode">
@@ -212,7 +192,7 @@
   <div class="frosted-header"><nav class="desktop-nav"><a href="#" class="active">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
   <div class="mobile-menu-overlay" id="mobileOverlay"><nav class="nav-links"><a href="#">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
 
-  <div class="marquee-wrapper"><div class="marquee"><span>– Arjay Ferrer • NetSuite Admin ⚙ • Systems Thinker 🧠 • Minimalist Aesthetic 🎯 • Purpose-Driven 📌 –</span></div></div>
+  <div class="marquee-wrapper"><div class="marquee">…</div></div>
 
   <div class="switch-container">
     <input class="toggle-checkbox" id="toggle-switch" type="checkbox" />
@@ -228,36 +208,30 @@
     <div class="content"><div class="card">Certifications, skills, and work history displayed here.</div></div>
   </div>
 
-  <div style="padding:1.5rem;"><div class="card">This is a long section to allow you to scroll the page and test the header behavior.</div><div class="card">Keep scrolling — this confirms the backdrop-filter is active and the blur works on content behind.</div><div class="card">You can adjust the background or add elements behind the header to test it better.</div><div class="card">Done scrolling? You can now tweak spacing, shadow, and radius as needed.</div></div>
+  <div style="padding:1.5rem;"><div class="card">…</div></div>
 
   <script>
     function toggleMenu(el) {
-      const overlay = document.getElementById('mobileOverlay');
-      overlay.classList.toggle('show');
+      const ov = document.getElementById('mobileOverlay');
+      ov.classList.toggle('show');
       el.classList.toggle('open');
     }
-    // Listen to toggle-switch instead of missing buttons
     const toggleSwitch = document.getElementById('toggle-switch');
     const creativeSection = document.querySelector('.intro-section');
     const professionalSection = document.querySelector('.professional-section');
-    if (toggleSwitch) {
-      toggleSwitch.addEventListener('change', () => {
-        // Inverted logic: unchecked = professional, checked = creative
-        if (!toggleSwitch.checked) {
-          // unchecked: professional mode
-          document.body.classList.add('professional-mode');
-          document.body.classList.remove('creative-mode');
-          professionalSection.style.display = 'flex';
-          creativeSection.style.display = 'none';
-        } else {
-          // checked: creative mode
-          document.body.classList.add('creative-mode');
-          document.body.classList.remove('professional-mode');
-          creativeSection.style.display = 'flex';
-          professionalSection.style.display = 'none';
-        }
-      });
-    }
+    toggleSwitch?.addEventListener('change', () => {
+      if (!toggleSwitch.checked) {
+        document.body.classList.add('professional-mode');
+        document.body.classList.remove('creative-mode');
+        professionalSection.style.display = 'flex';
+        creativeSection.style.display = 'none';
+      } else {
+        document.body.classList.add('creative-mode');
+        document.body.classList.remove('professional-mode');
+        creativeSection.style.display = 'flex';
+        professionalSection.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
