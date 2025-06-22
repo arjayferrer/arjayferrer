@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,20 +40,56 @@
     body.professional-mode::after  { opacity: 1; }
 
     /* Frosted header and nav */
-    .frosted-header { display:flex; justify-content:center; align-items:center; padding:.15rem .35rem; margin:1rem auto; border-radius:9999px; background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); position:fixed; top:1rem; left:50%; transform:translateX(-50%); z-index:999; box-shadow:0 8px 24px rgba(0,0,0,.15); }
+    .frosted-header {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:.15rem .35rem;
+      margin:1rem auto;
+      border-radius:9999px;
+      background:rgba(255,255,255,.15);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      position:fixed;
+      top:1rem;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:999;
+      box-shadow:0 8px 24px rgba(0,0,0,.15);
+    }
     .logo {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 1000;
-  }
-    .logo img { height:40px; transition:transform .3s,filter .3s; }
-    .logo img:hover { transform:scale(1.05); filter:drop-shadow(0 0 6px #e6fb04); }
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+    }
+    .logo img {
+      height:40px;
+      transition:transform .3s,filter .3s;
+    }
+    .logo img:hover {
+      transform:scale(1.05);
+      filter:drop-shadow(0 0 6px #e6fb04);
+    }
     /* Desktop nav override */
-    .frosted-header .desktop-nav { display:flex; gap:.3rem; }
-    .frosted-header .desktop-nav a { color:white; text-decoration:none; padding:.45rem 1.4rem; border-radius:9999px; transition:all .2s; }
-    .frosted-header .desktop-nav a.active { background:#e6fb04; color:black; }
-    .frosted-header .desktop-nav a:hover:not(.active) { background:rgba(255,255,255,.25); }
+    .frosted-header .desktop-nav {
+      display:flex;
+      gap:.3rem;
+    }
+    .frosted-header .desktop-nav a {
+      color:white;
+      text-decoration:none;
+      padding:.45rem 1.4rem;
+      border-radius:9999px;
+      transition:all .2s;
+    }
+    .frosted-header .desktop-nav a.active {
+      background:#e6fb04;
+      color:black;
+    }
+    .frosted-header .desktop-nav a:hover:not(.active) {
+      background:rgba(255,255,255,.25);
+    }
 
     /* Base hamburger (hidden by default) */
     .hamburger {
@@ -73,56 +108,61 @@
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
+    /* Ensure overlay is inert on desktop */
+    .mobile-menu-overlay {
+      display: none;
+    }
+
     /* Mobile overlay menu */
-@media (max-width: 768px) {
-  .frosted-header,
-  .desktop-nav {
-    display: none !important;
-  }
-  .hamburger {
-    display: flex !important;
-    position: fixed;
-    top: 1.2rem;
-    right: 1rem;
-    z-index: 1006;
-  }
-  .mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 75vw;
-    height: 50vh;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    z-index: 1002;
-    display: flex;
-    flex-direction: column;
-  }
-  .mobile-menu-overlay.show {
-    transform: translateX(0);
-  }
-  .mobile-menu-overlay .nav-links {
-    display: flex;
-    flex-direction: column;
-    padding: 4rem 2rem;
-    gap: 1.5rem;
-  }
-  .mobile-menu-overlay .nav-links a {
-    color: white;
-    font-size: 1.25rem;
-    text-decoration: none;
-  }
-  .switch-container {
-    z-index: 1005;
-  }
-}
+    @media (max-width: 768px) {
+      .frosted-header,
+      .desktop-nav {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+        position: fixed;
+        top: 1.2rem;
+        right: 1rem;
+        z-index: 1006;
+      }
+      .mobile-menu-overlay {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 75vw;
+        height: 50vh;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 1002;
+        flex-direction: column;
+      }
+      .mobile-menu-overlay.show {
+        transform: translateX(0);
+      }
+      .mobile-menu-overlay .nav-links {
+        display: flex;
+        flex-direction: column;
+        padding: 4rem 2rem;
+        gap: 1.5rem;
+      }
+      .mobile-menu-overlay .nav-links a {
+        color: white;
+        font-size: 1.25rem;
+        text-decoration: none;
+      }
+      .switch-container {
+        z-index: 1005;
+      }
+    }
 
     /* Hamburger open animation */
     .hamburger.open span:nth-child(1) {
@@ -136,12 +176,44 @@
     }
 
     /* Marquee */
-    .marquee-wrapper { margin-top:120px; background:black; overflow:hidden; white-space:nowrap; height:40px; display:flex; align-items:center; position:relative; }
-    .marquee-wrapper::before, .marquee-wrapper::after { content:''; position:absolute; top:0; width:80px; height:100%; z-index:1; }
-    .marquee-wrapper::before { left:0; background:linear-gradient(to right,black,transparent); }
-    .marquee-wrapper::after { right:0; background:linear-gradient(to left,black,transparent); }
-    .marquee { animation:scroll-left 30s linear infinite; display:inline-block; color:white; font-size:1rem; font-family:'DotGothic16',monospace; padding-left:100%; }
-    @keyframes scroll-left { 0%{transform:translateX(0%);}100%{transform:translateX(-100%);} }
+    .marquee-wrapper {
+      margin-top:120px;
+      background:black;
+      overflow:hidden;
+      white-space:nowrap;
+      height:40px;
+      display:flex;
+      align-items:center;
+      position:relative;
+    }
+    .marquee-wrapper::before, .marquee-wrapper::after {
+      content:'';
+      position:absolute;
+      top:0;
+      width:80px;
+      height:100%;
+      z-index:1;
+    }
+    .marquee-wrapper::before {
+      left:0;
+      background:linear-gradient(to right,black,transparent);
+    }
+    .marquee-wrapper::after {
+      right:0;
+      background:linear-gradient(to left,black,transparent);
+    }
+    .marquee {
+      animation:scroll-left 30s linear infinite;
+      display:inline-block;
+      color:white;
+      font-size:1rem;
+      font-family:'DotGothic16',monospace;
+      padding-left:100%;
+    }
+    @keyframes scroll-left {
+      0% { transform:translateX(0%); }
+      100% { transform:translateX(-100%); }
+    }
 
     /* Switch styles */
     .switch-container {
@@ -168,74 +240,189 @@
       font-size: 1rem;
       z-index: 1004;
     }
-    .switch-container::before { content:""; position:absolute; inset:0; border-radius:50px; background:linear-gradient(to right,#03feff,#ff00ff); opacity:0; transition:opacity .5s; }
+    .switch-container::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:50px;
+      background:linear-gradient(to right,#03feff,#ff00ff);
+      opacity:0;
+      transition:opacity .5s;
+    }
     .toggle-checkbox { display:none; }
-    .switch { position:relative; display:block; width:100%; height:100%; border-radius:50px; cursor:pointer; background:inherit; z-index:1; }
-    .switch::before { content:""; position:absolute; inset:0; background:linear-gradient(to right,#03feff,#ff00ff); border-radius:50px; opacity:0; transition:opacity .5s; z-index:-1; }
-    .toggle { position:absolute; width:50%; height:100%; background:linear-gradient(145deg,#d9d9d9,#bfbfbf); border-radius:50px; top:0; left:0; box-shadow:-4px -4px 8px #fff,4px 4px 8px #b0b0b0; transition:all .3s; display:flex; align-items:center; justify-content:center; z-index:2; }
-    .led { width:10px; height:10px; background:grey; border-radius:50%; box-shadow:0 0 10px 2px rgba(0,0,0,.2); transition:all .3s; }
+    .switch {
+      position:relative;
+      display:block;
+      width:100%;
+      height:100%;
+      border-radius:50px;
+      cursor:pointer;
+      background:inherit;
+      z-index:1;
+    }
+    .switch::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to right,#03feff,#ff00ff);
+      border-radius:50px;
+      opacity:0;
+      transition:opacity .5s;
+      z-index:-1;
+    }
+    .toggle {
+      position:absolute;
+      width:50%;
+      height:100%;
+      background:linear-gradient(145deg,#d9d9d9,#bfbfbf);
+      border-radius:50px;
+      top:0;
+      left:0;
+      box-shadow:-4px -4px 8px #fff,4px 4px 8px #b0b0b0;
+      transition:all .3s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:2;
+    }
+    .led {
+      width:10px;
+      height:10px;
+      background:grey;
+      border-radius:50%;
+      box-shadow:0 0 10px 2px rgba(0,0,0,.2);
+      transition:all .3s;
+    }
     .toggle-checkbox:checked ~ .switch-container::before { opacity:1; }
     .toggle-checkbox:checked + .switch::before { opacity:1; }
-    .toggle-checkbox:checked + .switch .toggle { left:50%; background:linear-gradient(145deg,#cfcfcf,#a9a9a9); box-shadow:-4px -4px 8px #fff,4px 4px 8px #8a8a8a; }
-    .toggle-checkbox:checked + .switch .led { background:yellow; box-shadow:0 0 15px 4px yellow; }
-    .switch:hover .toggle { box-shadow:-4px -4px 12px #fff,4px 4px 12px #9b9b9b; }
+    .toggle-checkbox:checked + .switch .toggle {
+      left:50%;
+      background:linear-gradient(145deg,#cfcfcf,#a9a9a9);
+      box-shadow:-4px -4px 8px #fff,4px 4px 8px #8a8a8a;
+    }
+    .toggle-checkbox:checked + .switch .led {
+      background:yellow;
+      box-shadow:0 0 15px 4px yellow;
+    }
+    .switch:hover .toggle {
+      box-shadow:-4px -4px 12px #fff,4px 4px 12px #9b9b9b;
+    }
 
     /* Sections and cards */
-    .intro-section, .professional-section { display:flex; align-items:stretch; gap:2rem; padding:3rem 1.5rem 1rem; margin-top:60px; }
+    .intro-section, .professional-section {
+      display:flex;
+      align-items:stretch;
+      gap:2rem;
+      padding:3rem 1.5rem 1rem;
+      margin-top:60px;
+    }
     .professional-section { display:none; }
-    .profile-picture img { width:280px; height:100%; max-height:420px; object-fit:cover; border-radius:12px; border:3px solid rgba(255,255,255,.4); box-shadow:0 4px 20px rgba(0,0,0,.3); transition:transform .3s; }
+    .profile-picture img {
+      width:280px;
+      height:100%;
+      max-height:420px;
+      object-fit:cover;
+      border-radius:12px;
+      border:3px solid rgba(255,255,255,.4);
+      box-shadow:0 4px 20px rgba(0,0,0,.3);
+      transition:transform .3s;
+    }
     .profile-picture img:hover { transform:scale(1.02); }
-    .profile-picture { flex-shrink:0; display:flex; align-items:stretch; height:420px; }
-    .content { flex:1; display:flex; flex-direction:column; justify-content:stretch; height:420px; }
-    .card { background:rgba(255,255,255,.1); padding:.75rem; border-radius:1rem; margin-bottom:.75rem; height:100%; }
+    .profile-picture {
+      flex-shrink:0;
+      display:flex;
+      align-items:stretch;
+      height:420px;
+    }
+    .content {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:stretch;
+      height:420px;
+    }
+    .card {
+      background:rgba(255,255,255,.1);
+      padding:.75rem;
+      border-radius:1rem;
+      margin-bottom:.75rem;
+      height:100%;
+    }
     @media (max-width: 768px) {
-      .intro-section, .professional-section { flex-direction:column; align-items:center; }
-      .profile-picture, .content { width:100%; height:auto; }
-      .profile-picture img { width:100%; max-height:none; }
+      .intro-section, .professional-section {
+        flex-direction:column;
+        align-items:center;
+      }
+      .profile-picture, .content {
+        width:100%;
+        height:auto;
+      }
+      .profile-picture img {
+        width:100%;
+        max-height:none;
+      }
     }
   </style>
 </head>
 <body class="professional-mode">
-  <div class="logo"><img src="assets/af-logo.png" alt="AF Logo"/></div>
-  <div class="hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></div>
-  <div class="frosted-header"><nav class="desktop-nav"><a href="#" class="active">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
-  <div class="mobile-menu-overlay" id="mobileOverlay"><nav class="nav-links"><a href="#">Home</a><a href="#">About</a><a href="#">Portfolio</a><a href="#">Contact</a></nav></div>
+  <div class="logo">
+    <img src="assets/af-logo.png" alt="AF Logo"/>
+  </div>
 
-  <div class="marquee-wrapper"><div class="marquee">…</div></div>
+  <div class="hamburger" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="frosted-header">
+    <nav class="desktop-nav">
+      <a href="#" class="active">Home</a>
+      <a href="#">About</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+
+  <div class="mobile-menu-overlay" id="mobileOverlay">
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+
+  <div class="marquee-wrapper">
+    <div class="marquee">…</div>
+  </div>
 
   <div class="switch-container">
     <input class="toggle-checkbox" id="toggle-switch" type="checkbox" />
-    <label class="switch" for="toggle-switch"><div class="toggle"><div class="led"></div></div></label>
+    <label class="switch" for="toggle-switch">
+      <div class="toggle"><div class="led"></div></div>
+    </label>
   </div>
 
   <div class="intro-section" style="display:none;">
-    <div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/></div>
-    <div class="content"><div class="card">I bring concepts to life with tools you use and techniques you’re honing:
-
-Canva: sleek social posts, marketing assets, presentations
-
-Procreate: digital sketches, moodboards, concept art
-
-AI-Powered Workflows: prompt-driven graphics, image refinements, style tests
-
-UI/UX Design: wireframes, user flows, clickable prototypes
-
-Web Basics: simple HTML/CSS experiments and component mock-ups
-
-GitHub Projects: version-controlled front-end snippets
-
-Gaming Inspiration: asset ideation, interface sketches, level concepts
-
-Lean, practical creativity—ready to evolve as your skills grow.</div></div>
+    <div class="profile-picture">
+      <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/>
+    </div>
+    <div class="content">
+      <div class="card">…creative content…</div>
+    </div>
   </div>
+
   <div class="professional-section" style="display:flex;">
-    <div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Professional Bio"/></div>
-    <div class="content"><div class="card">With over 10 years in IT—5+ focused on NetSuite—I build, optimize and automate ERP solutions that keep businesses running smoothly. I specialise in designing custom records and workflows, integrating third-party systems, and turning complex requirements into intuitive user experiences.
-
-</div></div>
+    <div class="profile-picture">
+      <img src="https://via.placeholder.com/280x420" alt="Professional Bio"/>
+    </div>
+    <div class="content">
+      <div class="card">…professional content…</div>
+    </div>
   </div>
 
-  <div style="padding:1.5rem;"><div class="card">…</div></div>
+  <div style="padding:1.5rem;">
+    <div class="card">…</div>
+  </div>
 
   <script>
     function toggleMenu(el) {
@@ -246,6 +433,7 @@ Lean, practical creativity—ready to evolve as your skills grow.</div></div>
     const toggleSwitch = document.getElementById('toggle-switch');
     const creativeSection = document.querySelector('.intro-section');
     const professionalSection = document.querySelector('.professional-section');
+
     toggleSwitch?.addEventListener('change', () => {
       if (!toggleSwitch.checked) {
         document.body.classList.add('professional-mode');
