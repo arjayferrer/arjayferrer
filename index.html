@@ -36,7 +36,7 @@
     }
 
     .logo {
-      position: fixed;
+      position: absolute;
       top: 1rem;
       left: 1rem;
       z-index: 1000;
@@ -104,16 +104,24 @@
       .nav-links {
         flex-direction: column;
         position: fixed;
-        top: 80px;
-        right: 1rem;
-        background: rgba(0,0,0,0.8);
+        top: 5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.85);
         padding: 1rem;
         border-radius: 1rem;
         display: none;
+        z-index: 998;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
       }
 
       .nav-links.show {
         display: flex;
+      }
+
+      .logo {
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
 
