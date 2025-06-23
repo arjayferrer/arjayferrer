@@ -340,6 +340,11 @@
         max-height:none;
       }
     }
+    @media (min-width: 769px) {
+      .presentation-block {
+        margin: 0 15%;
+      }
+    }
   </style>
 </head>
 <body class="professional-mode">
@@ -374,25 +379,28 @@
       <div class="toggle"><div class="led"></div></div>
     </label>
   </div>
-  <div class="intro-section" style="display:none;">
-    <div class="profile-picture">
-      <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/>
+  <div class="presentation-block">
+    <div class="intro-section" style="display:none;">
+      <div class="profile-picture">
+        <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/>
+      </div>
+      <div class="content">
+        <div class="card">…creative content…</div>
+      </div>
     </div>
-    <div class="content">
-      <div class="card">…creative content…</div>
+    <div class="professional-section" style="display:flex;">
+      <div class="profile-picture">
+        <img src="assets/professional-profile-photo.jpg" alt="Professional Bio"/>
+      </div>
+      <div class="content">
+        <div class="card">…professional content…</div>
+      </div>
     </div>
-  </div>
-  <div class="professional-section" style="display:flex;">
-    <div class="profile-picture">
-      <img src="assets/professional-profile-photo.jpg" alt="Professional Bio"/>
-    </div>
-    <div class="content">
-      <div class="card">…professional content…</div>
-    </div>
-  </div>
-  <div style="padding:1.5rem;">
+      <div style="padding:1.5rem;">
     <div class="card">…</div>
   </div>
+  </div>
+
   <script>
     function toggleMenu(el) {
       const ov = document.getElementById('mobileOverlay');
