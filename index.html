@@ -39,7 +39,7 @@
       z-index:999; box-shadow:0 8px 24px rgba(0,0,0,.15);
     }
     .logo {
-      position: fixed; top: 1rem; left: 1rem; z-index:1000;
+      position: fixed; top: 3rem; left: 3rem; z-index:1000;
     }
     .logo img { height:40px; transition:transform .3s,filter .3s; }
     .logo img:hover { transform:scale(1.05); filter:drop-shadow(0 0 6px #e6fb04); }
@@ -130,7 +130,14 @@
     .card { background:rgba(255,255,255,.1); padding:5rem; border-radius:1rem; margin-bottom:.75rem; height:100%; }
 
     /* Blob */
-    .blob-wrapper { position:absolute; bottom:2rem; right:2rem; --blob-size:10vh; --blob-gradient:linear-gradient(135deg,#D8B4FE 0%,#67E8F9 100%); --shades:inset 10px 0 40px #e9d8fd, inset -10px 0 20px #cffafe, inset -40px 10px 100px #bae6fd; }
+    .blob-wrapper {
+      position: absolute;
+      top: 4rem;
+      left: -1rem;
+      --blob-size: 10vh;
+      --blob-gradient: linear-gradient(135deg, #D8B4FE 0%, #67E8F9 100%);
+      --shades: inset 10px 0 40px #e9d8fd, inset -10px 0 20px #cffafe, inset -40px 10px 100px #bae6fd;
+    }
     .blob-wrapper::before { content:''; display:block; width:var(--blob-size); height:var(--blob-size); background:var(--blob-gradient); box-shadow:var(--shades); background-size:1600% 1600%; transform-origin:50% 50%; transform-style:preserve-3d; perspective:1000px; animation:transformAnim 10s ease-in-out infinite both alternate, movement 5s ease-in-out infinite both; border-radius:63% 37% 54% 46%/55% 48% 52% 45%; }
     @keyframes transformAnim { 0%,100%{border-radius:63% 37% 54% 46%/55% 48% 52% 45%} 14%{border-radius:40% 60% 54% 46%/49% 60% 40% 51%} 28%{border-radius:54% 46% 38% 62%/49% 70% 30% 51%} 42%{border-radius:61% 39% 55% 45%/61% 38% 62% 39%} 56%{border-radius:61% 39% 67% 33%/70% 50% 50% 30%} 70%{border-radius:50% 50% 34% 66%/56% 68% 32% 44%} 84%{border-radius:46% 54% 50% 50%/35% 61% 39% 65%} }
     @keyframes movement {0%,100%{transform:none} 50%{transform:translateY(20%) rotateY(10deg)}}
@@ -151,17 +158,19 @@
     <label class="switch" for="toggle-switch"><div class="toggle"><div class="led"></div></div></label>
   </div>
   <div class="presentation-block">
+    <div class="blob-wrapper"></div>
     <div class="intro-section" style="display:none;">
-      <div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/></div>
       <div class="content"><div class="card"><span id="creative-message">…creative content…</span><span class="caret">|</span></div></div>
+      <div class="profile-picture"><img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/></div>
     </div>
     <div class="professional-section" style="display:flex;">
-      <div class="profile-picture"><img src="assets/professional-profile-photo.jpg" alt="Professional Bio"/></div>
       <div class="content"><div class="card"><span id="ai-message">this is a sample message from the AI that I have created</span><span class="caret">|</span></div></div>
+      <div class="profile-picture"><img src="assets/professional-profile-photo.jpg" alt="Professional Bio"/></div>
     </div>
+    <div class="footer-card" style="padding:1.5rem;"><div class="card">…</div></div>
   </div>
-  <div class="footer-card" style="padding:1.5rem;"><div class="card">…</div></div>
-  <div class="blob-wrapper"></div>
+  
+  
   <script>
     function toggleMenu(el) {
       const ov = document.getElementById('mobileOverlay');
@@ -174,7 +183,7 @@
     const aiText = aiEl.textContent;
     const crEl = document.getElementById('creative-message');
     const crText = crEl.textContent;
-    const speed = 100;
+    const speed = 50; // ms per character (faster typing effect)
     function typeText(el, txt) {
       el.textContent = '';
       let i = 0;
