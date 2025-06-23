@@ -7,7 +7,6 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* Base body styles */
     body {
       margin: 0;
       height: 200vh;
@@ -16,7 +15,6 @@
       position: relative;
       overflow-x: hidden;
     }
-    /* dual-layer background for fade */
     body::before,
     body::after {
       content: "";
@@ -25,21 +23,17 @@
       z-index: -1;
       transition: opacity 1s ease;
     }
-    /* Creative gradient layer */
     body::before {
       background: linear-gradient(135deg, #667eea, #764ba2);
       opacity: 1;
     }
-    /* Professional gradient layer */
     body::after {
       background: linear-gradient(135deg, #888, #aaa);
       opacity: 0;
     }
-    /* Toggle layers on mode change */
     body.professional-mode::before { opacity: 0; }
     body.professional-mode::after  { opacity: 1; }
 
-    /* Frosted header and nav */
     .frosted-header {
       display:flex;
       justify-content:center;
@@ -59,7 +53,7 @@
     }
     .logo {
       position: fixed;
-      top: 1rem;
+      top: calc((80px - 40px) / 2);
       left: 1rem;
       z-index: 1000;
     }
@@ -71,7 +65,6 @@
       transform:scale(1.05);
       filter:drop-shadow(0 0 6px #e6fb04);
     }
-    /* Desktop nav override */
     .frosted-header .desktop-nav {
       display:flex;
       gap:.3rem;
@@ -90,8 +83,6 @@
     .frosted-header .desktop-nav a:hover:not(.active) {
       background:rgba(255,255,255,.25);
     }
-
-    /* Base hamburger (hidden by default) */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -107,13 +98,9 @@
       border-radius: 2px;
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
-
-    /* Ensure overlay is inert on desktop */
     .mobile-menu-overlay {
       display: none;
     }
-
-    /* Mobile overlay menu */
     @media (max-width: 768px) {
       .frosted-header,
       .desktop-nav {
@@ -163,8 +150,6 @@
         z-index: 1005;
       }
     }
-
-    /* Hamburger open animation */
     .hamburger.open span:nth-child(1) {
       transform: translateY(10px) rotate(45deg);
     }
@@ -174,8 +159,6 @@
     .hamburger.open span:nth-child(3) {
       transform: translateY(-10px) rotate(-45deg);
     }
-
-    /* Marquee */
     .marquee-wrapper {
       margin-top:120px;
       background:black;
@@ -214,8 +197,6 @@
       0% { transform:translateX(0%); }
       100% { transform:translateX(-100%); }
     }
-
-    /* Switch styles */
     .switch-container {
       position: fixed;
       bottom: 1rem;
@@ -307,20 +288,18 @@
     .switch:hover .toggle {
       box-shadow:-4px -4px 12px #fff,4px 4px 12px #9b9b9b;
     }
-
-    /* Sections and cards */
     .intro-section, .professional-section {
       display:flex;
       align-items:stretch;
       gap:2rem;
       padding:3rem 1.5rem 1rem;
-      margin-top:60px;
+      margin-top:5px;
+      flex-direction: row-reverse;
     }
     .professional-section { display:none; }
     .profile-picture img {
       width:280px;
       height:100%;
-      max-height:420px;
       object-fit:cover;
       border-radius:12px;
       border:3px solid rgba(255,255,255,.4);
@@ -329,17 +308,16 @@
     }
     .profile-picture img:hover { transform:scale(1.02); }
     .profile-picture {
+      height: 420px;
       flex-shrink:0;
       display:flex;
       align-items:stretch;
-      height:420px;
     }
     .content {
       flex:1;
       display:flex;
       flex-direction:column;
       justify-content:stretch;
-      height:420px;
     }
     .card {
       background:rgba(255,255,255,.1);
@@ -355,7 +333,7 @@
       }
       .profile-picture, .content {
         width:100%;
-        height:auto;
+        height:420px;
       }
       .profile-picture img {
         width:100%;
@@ -368,11 +346,9 @@
   <div class="logo">
     <img src="assets/af-logo.png" alt="AF Logo"/>
   </div>
-
   <div class="hamburger" onclick="toggleMenu(this)">
     <span></span><span></span><span></span>
   </div>
-
   <div class="frosted-header">
     <nav class="desktop-nav">
       <a href="#" class="active">Home</a>
@@ -381,7 +357,6 @@
       <a href="#">Contact</a>
     </nav>
   </div>
-
   <div class="mobile-menu-overlay" id="mobileOverlay">
     <nav class="nav-links">
       <a href="#">Home</a>
@@ -390,18 +365,15 @@
       <a href="#">Contact</a>
     </nav>
   </div>
-
   <div class="marquee-wrapper">
     <div class="marquee">ooooooh hopia mani popcorn quiapo quiapo quiapoooooooo...</div>
   </div>
-
   <div class="switch-container">
     <input class="toggle-checkbox" id="toggle-switch" type="checkbox" />
     <label class="switch" for="toggle-switch">
       <div class="toggle"><div class="led"></div></div>
     </label>
   </div>
-
   <div class="intro-section" style="display:none;">
     <div class="profile-picture">
       <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/>
@@ -410,7 +382,6 @@
       <div class="card">…creative content…</div>
     </div>
   </div>
-
   <div class="professional-section" style="display:flex;">
     <div class="profile-picture">
       <img src="assets/professional-profile-photo.jpg" alt="Professional Bio"/>
@@ -419,11 +390,9 @@
       <div class="card">…professional content…</div>
     </div>
   </div>
-
   <div style="padding:1.5rem;">
     <div class="card">…</div>
   </div>
-
   <script>
     function toggleMenu(el) {
       const ov = document.getElementById('mobileOverlay');
@@ -433,7 +402,6 @@
     const toggleSwitch = document.getElementById('toggle-switch');
     const creativeSection = document.querySelector('.intro-section');
     const professionalSection = document.querySelector('.professional-section');
-
     toggleSwitch?.addEventListener('change', () => {
       if (!toggleSwitch.checked) {
         document.body.classList.add('professional-mode');
