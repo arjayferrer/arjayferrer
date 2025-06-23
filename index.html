@@ -186,7 +186,7 @@
       background:linear-gradient(to left,black,transparent);
     }
     .marquee {
-      animation:scroll-left 60s linear infinite;
+      animation:scroll-left 30s linear infinite;
       display:inline-block;
       color:white;
       font-size:1rem;
@@ -342,8 +342,99 @@
     }
     @media (min-width: 769px) {
       .presentation-block {
-        margin: 0 15%;
+      position: relative;
+      margin: 0 15%;
+    }
+    }
+      
+      50% { transform: translateY(-8px); }
+    }
+      50% { transform: translateY(-8px); }
+    }
+      /* Override AI Avatar placement within presentation-block */
+    .presentation-block {
+      position: relative;
+      margin: 0 15%;
+    }
+    .presentation-block .ai-avatar {
+      position: absolute !important;
+      top: 40px;   /* adjust slightly below marquee */
+      left: 10px;  /* slight left offset */
+      z-index: 2000;
+    }
+      /* Animated CSS Blob for AI Avatar Background */
+    .presentation-block {
+      position: relative;
+    }
+    .presentation-block .blob-wrapper {
+      position: absolute;
+      top: 3rem;
+      left: 0;
+      --blob-size: 10vh;
+      --blob-gradient: linear-gradient(135deg, #D8B4FE 0%, #67E8F9 100%);
+      --shades: inset 10px 0 40px #e9d8fd, inset -10px 0 20px #cffafe, inset -40px 10px 100px #bae6fd;
+    }
+    .presentation-block .blob-wrapper::before {
+      content: '';
+      display: block;
+      width: var(--blob-size);
+      height: var(--blob-size);
+      background: var(--blob-gradient);
+      box-shadow: var(--shades);
+      background-size: 1600% 1600%;
+      transform-origin: 50% 50%;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      animation: transformAnim 10s ease-in-out infinite both alternate, movement 5s ease-in-out infinite both;
+      border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    }
+    .blob-wrapper::before {
+      content: '';
+      display: block;
+      width: var(--blob-size);
+      height: var(--blob-size);
+      background: var(--blob-gradient);
+      box-shadow: var(--shades);
+      background-size: 1600% 1600%;
+      transform-origin: 50% 50%;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      animation: transformAnim 10s ease-in-out infinite both alternate, movement 5s ease-in-out infinite both;
+      border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    }
+    @keyframes transformAnim {
+      0%, 100% { border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%; }
+      14% { border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%; }
+      28% { border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%; }
+      42% { border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%; }
+      56% { border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%; }
+      70% { border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%; }
+      84% { border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%; }
+    }
+    @keyframes movement {
+      0%, 100% { transform: none; }
+      50% { transform: translateY(20%) rotateY(10deg); }
+    }
+    @media (prefers-color-scheme: dark) {
+      .blob-wrapper {
+        --blob-gradient: linear-gradient(135deg, #C084FC 0%, #22D3EE 100%);
+        --shades: inset 10px 0 40px #a78bfa, inset -10px 0 20px #06b6d4, inset -40px 10px 110px #0e7490;
       }
+    }
+      /* Typing animation for professional content */
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid white;
+      white-space: nowrap;
+      animation: typing 4s steps(30, end), blink-caret .75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: white; }
     }
   </style>
 </head>
@@ -380,6 +471,7 @@
     </label>
   </div>
   <div class="presentation-block">
+    <div class="blob-wrapper"></div>
     <div class="intro-section" style="display:none;">
       <div class="profile-picture">
         <img src="https://via.placeholder.com/280x420" alt="Arjay Ferrer"/>
@@ -393,14 +485,13 @@
         <img src="assets/professional-profile-photo.jpg" alt="Professional Bio"/>
       </div>
       <div class="content">
-        <div class="card">…professional content…</div>
+        <div class="card"><span class="typewriter">this is a sample message from the AI that I have created</span></div>
       </div>
     </div>
-      <div style="padding:1.5rem;">
-    <div class="card">…</div>
+    <div style="padding:1.5rem;">
+      <div class="card">…</div>
+    </div>
   </div>
-  </div>
-
   <script>
     function toggleMenu(el) {
       const ov = document.getElementById('mobileOverlay');
@@ -424,5 +515,7 @@
       }
     });
   </script>
+  <!-- CSS Blob Avatar Background -->
+  
 </body>
 </html>
