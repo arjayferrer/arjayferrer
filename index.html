@@ -204,14 +204,20 @@ I'm a NetSuite Administrator and IT Consultant based in Dubai. I help companies 
     const crEl = document.getElementById('creative-message');
     const crText = crEl.textContent;
     const speed = 50; // ms per character (faster typing effect)
-    function typeText(el, txt) {
-      el.textContent = '';
-      let i = 0;
-      function step() {
-        if (i < txt.length) { el.textContent += txt[i++]; setTimeout(step, speed); }
-      }
-      step();
+function typeText(el, txt) {
+  el.innerHTML = ''; // Use innerHTML instead of textContent
+  let i = 0;
+  function step() {
+    if (i < txt.length) {
+      // Show sliced text up to i+1, so any <br> tags get rendered as HTML
+      el.innerHTML = txt.slice(0, i + 1);
+      i++;
+      setTimeout(step, speed);
     }
+  }
+  step();
+}
+
     toggleSwitch?.addEventListener('change', () => {
       if (!toggleSwitch.checked) {
         document.body.classList.add('professional-mode'); document.body.classList.remove('creative-mode');
