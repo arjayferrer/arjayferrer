@@ -174,7 +174,7 @@ export default function IndexPage() {
                   <Download className="mr-2 h-4 w-4" /> Download CV
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/arjayferrer"
+                  href="https://www.linkedin.com/in/jayferrer"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center rounded-2xl px-4 py-2 hover:bg-gray-50"
