@@ -2,7 +2,7 @@ name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: ["main"]     # or add "react-migration" too if you won't merge yet
+    branches: ["main"]
   workflow_dispatch: {}
 
 permissions:
@@ -13,16 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: app     # 👈 build from app/
+        working-directory: app   # build from app/
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
       - run: npm ci
       - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./app/dist   # 👈 publish the build output
+          publish_dir: ./app/dist
+          cname: arjayferrer.com   # ensure CNAME is in gh-pages every deploy
