@@ -362,7 +362,7 @@ export default function IndexPage() {
                 <Phone className="h-5 w-5" /> Contact
               </div>
               <div className="space-y-3 text-sm text-gray-600">
-                <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@arjayferrer.com</div>
+                <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> admin@arjayferrer.com</div>
                 <div className="flex items-center gap-2"><Linkedin className="h-4 w-4" /> /in/arjayferrer</div>
                 <div className="flex items-center gap-2"><Github className="h-4 w-4" /> github.com/</div>
                 <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Dubai, UAE</div>
