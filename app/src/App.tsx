@@ -165,7 +165,8 @@ export default function IndexPage() {
                   <Mail className="mr-2 h-4 w-4" /> Start a project
                 </a>
                 <a
-                  href="/ArjayFerrer-CV.pdf"
+                  href="/CVArjayFerrer.pdf"
+                  download="CVArjayFerrer.pdf"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center rounded-2xl border px-4 py-2 hover:bg-gray-50"
