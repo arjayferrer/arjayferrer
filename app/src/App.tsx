@@ -167,8 +167,6 @@ export default function IndexPage() {
                 <a
                   href="/CVArjayFerrer.pdf"
                   download="CVArjayFerrer.pdf"
-                  target="_blank"
-                  rel="noreferrer"
                   className="inline-flex items-center rounded-2xl border px-4 py-2 hover:bg-gray-50"
                 >
                   <Download className="mr-2 h-4 w-4" /> Download CV
