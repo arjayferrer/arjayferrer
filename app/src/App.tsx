@@ -182,7 +182,7 @@ export default function IndexPage() {
                   <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
                 </a>
                 <a
-                  href="https://github.com/"
+                  href="https://github.com/arjayferrer"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center rounded-2xl px-4 py-2 hover:bg-gray-50"
