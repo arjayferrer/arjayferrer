@@ -14,7 +14,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: app   # <— build from app/
+        working-directory: app   # <- force it to use app/
 
     steps:
       - uses: actions/checkout@v4
@@ -32,5 +32,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./app/dist     # <— publish app/dist
+          publish_dir: ./app/dist     # <- publish the app build
           cname: arjayferrer.com
