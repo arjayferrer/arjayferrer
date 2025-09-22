@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import {
-  Download, Mail, Wrench, ServerCog, Globe, ShieldCheck, Workflow,
+  Mail, Wrench, ServerCog, Globe, ShieldCheck, Workflow,
   FileText, Blocks, Database, Rocket, Linkedin, Github, Phone,
   MapPin, CalendarDays, Search
 } from "lucide-react"
