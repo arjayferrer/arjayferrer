@@ -1,37 +1,25 @@
-import React from "react"
-import { motion } from "framer-motion"
+import { useState, FormEvent, type ReactNode } from "react"
 import {
   Mail, Wrench, ServerCog, Globe, ShieldCheck, Workflow,
   FileText, Blocks, Database, Rocket, Linkedin, Github, Phone,
-  MapPin, CalendarDays, Search
+  MapPin, CalendarDays
 } from "lucide-react"
 
 
 const ACCENT = "#03feff"
 
-const Container = ({ children }: { children: React.ReactNode }) => (
+const Container = ({ children }: { children: ReactNode }) => (
   <div className="mx-auto w-full max-w-6xl px-4">{children}</div>
 )
 
 const Section = ({
   id, title, subtitle, children
-}: { id: string; title: string; subtitle?: string; children: React.ReactNode }) => (
+}: { id: string; title: string; subtitle?: string; children: ReactNode }) => (
   <section id={id} className="py-16 md:py-24">
     <Container>
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">{title}</h2>
-          {subtitle && <p className="mt-2 max-w-2xl text-gray-500">{subtitle}</p>}
-        </div>
-        <div className="w-full md:w-auto">
-          <div className="relative">
-            <input
-              className="w-full rounded-md border px-3 py-2 pl-10 text-sm"
-              placeholder="Quick search (projects, skills, services)"
-            />
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-          </div>
-        </div>
+      <div className="mb-10">
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">{title}</h2>
+        {subtitle && <p className="mt-2 max-w-2xl text-gray-500">{subtitle}</p>}
       </div>
       {children}
     </Container>
@@ -45,16 +33,16 @@ const Stat = ({ k, v }: { k: string; v: string }) => (
   </div>
 )
 
-const Badge = ({ children }: { children: React.ReactNode }) => (
+const Badge = ({ children }: { children: ReactNode }) => (
   <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium bg-white/60 backdrop-blur">
     {children}
   </span>
 )
-// --- Contact form wired to Formspree ---
-function ContactForm() {
-  const [status, setStatus] = React.useState<"idle" | "loading" | "ok" | "err">("idle")
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "err">("idle")
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus("loading")
     const form = e.currentTarget
@@ -99,7 +87,6 @@ function ContactForm() {
         placeholder="A few details—current pain points, deadline, budget range"
       />
 
-      {/* Subject shown in the email you receive */}
       <input type="hidden" name="_subject" value="New project inquiry from arjayferrer.com" />
 
       <div className="flex items-center justify-between">
@@ -113,7 +100,7 @@ function ContactForm() {
         </button>
       </div>
 
-      {status === "ok" && <p className="mt-2 text-sm text-green-600">✅ Sent. I’ll reply shortly.</p>}
+      {status === "ok" && <p className="mt-2 text-sm text-green-600">✅ Sent. I'll reply shortly.</p>}
       {status === "err" && <p className="mt-2 text-sm text-red-600">⚠️ Something went wrong. Try again or email hello@arjayferrer.com.</p>}
     </form>
   )
@@ -124,7 +111,6 @@ export default function IndexPage() {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-900">
       {/* HERO */}
       <header className="relative overflow-hidden">
-        {/* subtle glow */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div
             className="absolute -top-24 left-1/2 h-64 w-[90vw] -translate-x-1/2 rounded-full blur-3xl opacity-30"
@@ -134,12 +120,7 @@ export default function IndexPage() {
         </div>
 
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="grid items-center gap-8 pt-16 pb-16 md:pt-24 md:pb-24 md:grid-cols-12"
-          >
+          <div className="hero-fade-in grid items-center gap-8 pt-16 pb-16 md:pt-24 md:pb-24 md:grid-cols-12">
             {/* left */}
             <div className="md:col-span-7">
               <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -166,13 +147,13 @@ export default function IndexPage() {
                 >
                   <Mail className="mr-2 h-4 w-4" /> Start a project
                 </a>
-<a
-  href="/CVArjayFerrer.pdf"
-  download="CVArjayFerrer.pdf"
-  className="inline-flex items-center rounded-2xl border px-4 py-2"
->
-  Download CV
-</a>
+                <a
+                  href="/CVArjayFerrer.pdf"
+                  download="CVArjayFerrer.pdf"
+                  className="inline-flex items-center rounded-2xl border px-4 py-2"
+                >
+                  Download CV
+                </a>
                 <a
                   href="https://www.linkedin.com/in/jayferrer"
                   target="_blank"
@@ -235,7 +216,7 @@ export default function IndexPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </Container>
       </header>
 
@@ -258,14 +239,14 @@ export default function IndexPage() {
               title: "Web Design / UX",
               bullets: ["Single-page sites","Landing pages","Design systems","Lightweight animations","Content & SEO basics"],
             },
-          ].map((s, i) => (
-            <div key={i} className="rounded-2xl border bg-white p-5 shadow-sm">
+          ].map((s) => (
+            <div key={s.title} className="rounded-2xl border bg-white p-5 shadow-sm">
               <div className="mb-3 flex items-center gap-2 font-semibold">
                 {s.icon} {s.title}
               </div>
               <ul className="space-y-2 text-sm">
-                {s.bullets.map((b, j) => (
-                  <li key={j} className="flex items-start gap-2">
+                {s.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2">
                     <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
                     {b}
                   </li>
@@ -283,8 +264,8 @@ export default function IndexPage() {
             { icon: <FileText className="h-5 w-5" />, title: "Advanced PDF suite", desc: "Quotation, Packing Slip, and auto-paginated templates with conditional tables and totals.", meta: "NetSuite • XML/FreeMarker" },
             { icon: <Blocks className="h-5 w-5" />, title: "Support Cases on NetSuite", desc: "Email-to-case, SLAs, dashboards, and automated customer updates.", meta: "NetSuite • Workflows" },
             { icon: <Database className="h-5 w-5" />, title: "Inbound Shipments + WMS", desc: "Cleaned legacy searches, implemented WMS with notifications to Sales and clients.", meta: "NetSuite • WMS" },
-          ].map((p, i) => (
-            <div key={i} className="rounded-2xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-lg">
+          ].map((p) => (
+            <div key={p.title} className="rounded-2xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-lg">
               <div className="mb-3 flex items-center gap-2 font-semibold">{p.icon}{p.title}</div>
               <p className="min-h-[56px] text-sm text-gray-500">{p.desc}</p>
               <div className="mt-4 text-xs opacity-80">{p.meta}</div>
@@ -301,8 +282,8 @@ export default function IndexPage() {
             { n: "02", t: "Build", d: "Implement with small, reviewable increments." },
             { n: "03", t: "Ship", d: "Deploy safely with rollback in mind." },
             { n: "04", t: "Support", d: "Measure, iterate, document." },
-          ].map((s, i) => (
-            <div key={i} className="rounded-2xl border bg-white p-5 shadow-sm">
+          ].map((s) => (
+            <div key={s.n} className="rounded-2xl border bg-white p-5 shadow-sm">
               <div className="mb-2 flex items-center gap-3 text-lg font-semibold">
                 <span className="text-xl" style={{ color: ACCENT }}>{s.n}</span>{s.t}
               </div>
@@ -343,19 +324,17 @@ export default function IndexPage() {
       </Section>
 
       {/* CONTACT */}
-      <Section id="contact" title="Let’s work" subtitle="Tell me what you need. I’ll reply with a plan and a timeline.">
+      <Section id="contact" title="Let's work" subtitle="Tell me what you need. I'll reply with a plan and a timeline.">
         <div className="grid items-start gap-6 md:grid-cols-5">
-          {/* form */}
           <div className="md:col-span-3">
             <div className="rounded-2xl border bg-white p-5 shadow-sm">
               <div className="mb-3 flex items-center gap-2 text-lg font-semibold">
                 <Mail className="h-5 w-5" /> Start a project
               </div>
-<ContactForm />
+              <ContactForm />
             </div>
           </div>
 
-          {/* sidebar */}
           <div className="grid gap-6 md:col-span-2">
             <div className="rounded-2xl border bg-white p-5 shadow-sm">
               <div className="mb-3 flex items-center gap-2 text-lg font-semibold">
@@ -363,8 +342,8 @@ export default function IndexPage() {
               </div>
               <div className="space-y-3 text-sm text-gray-600">
                 <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@arjayferrer.com</div>
-                <div className="flex items-center gap-2"><Linkedin className="h-4 w-4" /> /in/arjayferrer</div>
-                <div className="flex items-center gap-2"><Github className="h-4 w-4" /> github.com/</div>
+                <div className="flex items-center gap-2"><Linkedin className="h-4 w-4" /> /in/jayferrer</div>
+                <div className="flex items-center gap-2"><Github className="h-4 w-4" /> github.com/arjayferrer</div>
                 <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Dubai, UAE</div>
                 <div className="flex items-center gap-2"><CalendarDays className="h-4 w-4" /> Mon–Fri • 8–5 GST</div>
               </div>
