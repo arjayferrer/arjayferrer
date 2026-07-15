@@ -2,7 +2,7 @@ import { useState, type FormEvent, type ReactNode } from "react"
 import {
   Mail, ServerCog, Globe, Workflow,
   FileText, Blocks, Database, Linkedin, Github, Phone,
-  MapPin, CalendarDays
+  MapPin, CalendarDays, User
 } from "lucide-react"
 
 
@@ -180,7 +180,9 @@ export default function IndexPage() {
                     "repeating-linear-gradient(135deg, oklch(0.92 0.006 250) 0 12px, oklch(0.95 0.006 250) 12px 24px)",
                 }}
               >
-                <span className="font-mono text-xs text-muted">headshot photo</span>
+                <div className="flex h-28 w-28 items-center justify-center rounded-full bg-white text-muted shadow-sm">
+                  <User className="h-14 w-14" strokeWidth={1.5} />
+                </div>
               </div>
             </div>
           </div>
