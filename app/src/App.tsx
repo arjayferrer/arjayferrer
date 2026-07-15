@@ -1,40 +1,36 @@
-import { useState, FormEvent, type ReactNode } from "react"
+import { useState, type FormEvent, type ReactNode } from "react"
 import {
-  Mail, Wrench, ServerCog, Globe, ShieldCheck, Workflow,
-  FileText, Blocks, Database, Rocket, Linkedin, Github, Phone,
+  Mail, ServerCog, Globe, Workflow,
+  FileText, Blocks, Database, Linkedin, Github, Phone,
   MapPin, CalendarDays
 } from "lucide-react"
 
 
-const ACCENT = "#03feff"
+const ACCENT = "#3d4fb5"
 
 const Container = ({ children }: { children: ReactNode }) => (
   <div className="mx-auto w-full max-w-6xl px-4">{children}</div>
 )
 
 const Section = ({
-  id, title, subtitle, children
-}: { id: string; title: string; subtitle?: string; children: ReactNode }) => (
+  id, eyebrow, title, subtitle, children
+}: { id: string; eyebrow?: string; title: string; subtitle?: string; children: ReactNode }) => (
   <section id={id} className="py-16 md:py-24">
     <Container>
-      <div className="mb-10">
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">{title}</h2>
-        {subtitle && <p className="mt-2 max-w-2xl text-gray-500">{subtitle}</p>}
+      <div className="mb-10 max-w-2xl">
+        {eyebrow && (
+          <div className="mb-3 text-xs font-bold uppercase tracking-wider text-accent">{eyebrow}</div>
+        )}
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-ink">{title}</h2>
+        {subtitle && <p className="mt-2 text-muted">{subtitle}</p>}
       </div>
       {children}
     </Container>
   </section>
 )
 
-const Stat = ({ k, v }: { k: string; v: string }) => (
-  <div className="text-center">
-    <div className="text-2xl md:text-3xl font-semibold">{v}</div>
-    <div className="mt-1 text-xs md:text-sm text-gray-400">{k}</div>
-  </div>
-)
-
 const Badge = ({ children }: { children: ReactNode }) => (
-  <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium bg-white/60 backdrop-blur">
+  <span className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3.5 py-1.5 text-xs font-semibold text-accent">
     {children}
   </span>
 )
@@ -71,18 +67,18 @@ function ContactForm() {
       <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <input className="w-full rounded-md border px-3 py-2" name="name" placeholder="Your name" required />
-        <input className="w-full rounded-md border px-3 py-2" name="email" type="email" placeholder="Email" required />
+        <input className="w-full rounded-lg border border-hairline px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30" name="name" placeholder="Your name" required />
+        <input className="w-full rounded-lg border border-hairline px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30" name="email" type="email" placeholder="Email" required />
       </div>
-      <input className="w-full rounded-md border px-3 py-2" name="company" placeholder="Company (optional)" />
+      <input className="w-full rounded-lg border border-hairline px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30" name="company" placeholder="Company (optional)" />
       <input
-        className="w-full rounded-md border px-3 py-2"
+        className="w-full rounded-lg border border-hairline px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30"
         name="need"
         placeholder="What do you need? e.g., NetSuite workflow, website, Google Workspace"
         required
       />
       <textarea
-        className="min-h-[120px] w-full rounded-md border px-3 py-2"
+        className="min-h-[120px] w-full rounded-lg border border-hairline px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30"
         name="details"
         placeholder="A few details—current pain points, deadline, budget range"
       />
@@ -90,17 +86,17 @@ function ContactForm() {
       <input type="hidden" name="_subject" value="New project inquiry from arjayferrer.com" />
 
       <div className="flex items-center justify-between">
-        <div className="text-xs text-gray-500">No templates. Clear, direct replies.</div>
+        <div className="text-xs text-muted">No templates. Clear, direct replies.</div>
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center rounded-2xl bg-black px-4 py-2 text-white hover:opacity-90 disabled:opacity-60"
+          className="inline-flex items-center rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-60"
         >
           {status === "loading" ? "Sending…" : "Send"} <span className="ml-2">→</span>
         </button>
       </div>
 
-      {status === "ok" && <p className="mt-2 text-sm text-green-600">✅ Sent. I'll reply shortly.</p>}
+      {status === "ok" && <p className="mt-2 text-sm text-emerald-600">✅ Sent. I'll reply shortly.</p>}
       {status === "err" && <p className="mt-2 text-sm text-red-600">⚠️ Something went wrong. Try again or email hello@arjayferrer.com.</p>}
     </form>
   )
@@ -108,7 +104,29 @@ function ContactForm() {
 
 export default function IndexPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-900">
+    <div className="min-h-screen bg-canvas text-ink">
+      {/* NAV */}
+      <nav className="sticky top-0 z-20 bg-canvas/85 backdrop-blur">
+        <Container>
+          <div className="flex items-center justify-between py-5">
+            <a href="#" className="text-lg font-extrabold tracking-tight text-ink">Arjay Ferrer</a>
+            <div className="flex items-center gap-8">
+              <div className="hidden items-center gap-8 md:flex">
+                <a href="#services" className="text-sm font-medium text-muted hover:text-ink">Services</a>
+                <a href="#skills" className="text-sm font-medium text-muted hover:text-ink">Skills</a>
+                <a href="#about" className="text-sm font-medium text-muted hover:text-ink">About</a>
+              </div>
+              <a
+                href="#contact"
+                className="inline-flex items-center rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+              >
+                Get in touch
+              </a>
+            </div>
+          </div>
+        </Container>
+      </nav>
+
       {/* HERO */}
       <header className="relative overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -116,104 +134,53 @@ export default function IndexPage() {
             className="absolute -top-24 left-1/2 h-64 w-[90vw] -translate-x-1/2 rounded-full blur-3xl opacity-30"
             style={{ background: `radial-gradient(closest-side, ${ACCENT}, transparent)` }}
           />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(3,254,255,0.4)] to-transparent" />
         </div>
 
         <Container>
-          <div className="hero-fade-in grid items-center gap-8 pt-16 pb-16 md:pt-24 md:pb-24 md:grid-cols-12">
+          <div className="hero-fade-in grid items-center gap-12 py-16 md:py-24 md:grid-cols-12">
             {/* left */}
             <div className="md:col-span-7">
-              <div className="mb-4 flex flex-wrap items-center gap-2">
-                <Badge><Rocket className="h-3.5 w-3.5" /> Available for: NetSuite, IT Systems, Web</Badge>
-                <Badge><ShieldCheck className="h-3.5 w-3.5" /> Dubai • Remote OK</Badge>
-              </div>
+              <Badge>
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                Available for consulting engagements
+              </Badge>
 
-              <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
-                Arjay Ferrer
-                <span className="mt-3 block text-lg md:text-xl text-gray-500">
-                  NetSuite Admin • IT & Systems • Web Design/UX
-                </span>
+              <h1 className="mt-6 text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-ink">
+                NetSuite Admin &amp; IT Consultant, Dubai
               </h1>
 
-              <p className="mt-4 max-w-2xl text-gray-600">
-                I build clean, reliable business systems: NetSuite customizations, Google Workspace/IT ops, and
-                minimalist, fast web experiences.
+              <p className="mt-5 max-w-xl text-lg text-muted">
+                I help companies optimize business processes with modern ERP solutions, workflow
+                automation, and digital transformation — end to end, from setup to support.
               </p>
 
-              <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="mt-8 flex flex-wrap gap-3.5">
                 <a
                   href="#contact"
-                  className="inline-flex items-center rounded-2xl bg-black px-4 py-2 text-white hover:opacity-90"
+                  className="inline-flex items-center rounded-lg bg-ink px-7 py-3.5 text-sm font-semibold text-white hover:opacity-90"
                 >
-                  <Mail className="mr-2 h-4 w-4" /> Start a project
+                  Start a project
                 </a>
                 <a
                   href="/CVArjayFerrer.pdf"
                   download="CVArjayFerrer.pdf"
-                  className="inline-flex items-center rounded-2xl border px-4 py-2"
+                  className="inline-flex items-center rounded-lg border border-hairline px-7 py-3.5 text-sm font-semibold text-ink hover:border-muted"
                 >
                   Download CV
                 </a>
-                <a
-                  href="https://www.linkedin.com/in/jayferrer"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center rounded-2xl px-4 py-2 hover:bg-gray-50"
-                >
-                  <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
-                </a>
-                <a
-                  href="https://github.com/arjayferrer"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center rounded-2xl px-4 py-2 hover:bg-gray-50"
-                >
-                  <Github className="mr-2 h-4 w-4" /> GitHub
-                </a>
-              </div>
-
-              <div className="mt-8 grid grid-cols-3 gap-6">
-                <Stat k="Years in Tech" v="10+" />
-                <Stat k="NetSuite Focus" v="5+ yrs" />
-                <Stat k="Departments Served" v="Ops • Sales • Finance" />
               </div>
             </div>
 
             {/* right */}
             <div className="md:col-span-5">
-              <div className="rounded-2xl border bg-white shadow-sm">
-                <div className="border-b px-5 py-4 font-semibold flex items-center gap-2">
-                  <Wrench className="h-5 w-5" /> What I solve
-                </div>
-                <div className="grid gap-3 p-5 text-sm">
-                  <div className="flex items-start gap-3">
-                    <Workflow className="mt-0.5 h-4 w-4" />
-                    <div>
-                      <div className="font-medium">NetSuite that actually works</div>
-                      <p className="text-gray-500">
-                        Workflows, Saved Searches, Advanced PDF/HTML, SuiteScript 2.x, WMS, Inbound Shipments, customer notifications
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <ServerCog className="mt-0.5 h-4 w-4" />
-                    <div>
-                      <div className="font-medium">IT & Google Workspace</div>
-                      <p className="text-gray-500">
-                        Email + SSO hygiene, device & network basics, user onboarding/offboarding, policy and guardrails
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Globe className="mt-0.5 h-4 w-4" />
-                    <div>
-                      <div className="font-medium">Clean, fast web</div>
-                      <p className="text-gray-500">
-                        Minimalist sites with clear copy. No fluff. Accessible, responsive, and fast.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div
+                className="flex aspect-[4/5] items-center justify-center rounded-2xl"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(135deg, oklch(0.92 0.006 250) 0 12px, oklch(0.95 0.006 250) 12px 24px)",
+                }}
+              >
+                <span className="font-mono text-xs text-muted">headshot photo</span>
               </div>
             </div>
           </div>
@@ -221,7 +188,7 @@ export default function IndexPage() {
       </header>
 
       {/* SERVICES */}
-      <Section id="services" title="Services" subtitle="Pick what you need. No fluff.">
+      <Section id="services" eyebrow="Services" title="Where I can help your business" subtitle="Pick what you need. No fluff.">
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
@@ -240,11 +207,11 @@ export default function IndexPage() {
               bullets: ["Single-page sites","Landing pages","Design systems","Lightweight animations","Content & SEO basics"],
             },
           ].map((s) => (
-            <div key={s.title} className="rounded-2xl border bg-white p-5 shadow-sm">
-              <div className="mb-3 flex items-center gap-2 font-semibold">
+            <div key={s.title} className="rounded-xl border border-hairline bg-white p-6 transition-colors hover:border-ink/30">
+              <div className="mb-3 flex items-center gap-2 font-semibold text-ink">
                 {s.icon} {s.title}
               </div>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-2 text-sm text-muted">
                 {s.bullets.map((b) => (
                   <li key={b} className="flex items-start gap-2">
                     <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full" style={{ background: ACCENT }} />
@@ -265,10 +232,10 @@ export default function IndexPage() {
             { icon: <Blocks className="h-5 w-5" />, title: "Support Cases on NetSuite", desc: "Email-to-case, SLAs, dashboards, and automated customer updates.", meta: "NetSuite • Workflows" },
             { icon: <Database className="h-5 w-5" />, title: "Inbound Shipments + WMS", desc: "Cleaned legacy searches, implemented WMS with notifications to Sales and clients.", meta: "NetSuite • WMS" },
           ].map((p) => (
-            <div key={p.title} className="rounded-2xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-lg">
-              <div className="mb-3 flex items-center gap-2 font-semibold">{p.icon}{p.title}</div>
-              <p className="min-h-[56px] text-sm text-gray-500">{p.desc}</p>
-              <div className="mt-4 text-xs opacity-80">{p.meta}</div>
+            <div key={p.title} className="rounded-xl border border-hairline bg-white p-6 transition-colors hover:border-ink/30">
+              <div className="mb-3 flex items-center gap-2 font-semibold text-ink">{p.icon}{p.title}</div>
+              <p className="min-h-[56px] text-sm text-muted">{p.desc}</p>
+              <div className="mt-4 text-xs text-muted">{p.meta}</div>
             </div>
           ))}
         </div>
@@ -283,38 +250,61 @@ export default function IndexPage() {
             { n: "03", t: "Ship", d: "Deploy safely with rollback in mind." },
             { n: "04", t: "Support", d: "Measure, iterate, document." },
           ].map((s) => (
-            <div key={s.n} className="rounded-2xl border bg-white p-5 shadow-sm">
-              <div className="mb-2 flex items-center gap-3 text-lg font-semibold">
-                <span className="text-xl" style={{ color: ACCENT }}>{s.n}</span>{s.t}
+            <div key={s.n} className="rounded-xl border border-hairline bg-white p-6 transition-colors hover:border-ink/30">
+              <div className="mb-2 flex items-center gap-3 text-lg font-semibold text-ink">
+                <span className="text-xl font-extrabold" style={{ color: ACCENT }}>{s.n}</span>{s.t}
               </div>
-              <p className="text-sm text-gray-500">{s.d}</p>
+              <p className="text-sm text-muted">{s.d}</p>
             </div>
           ))}
         </div>
       </Section>
 
+      {/* SKILLS */}
+      <section id="skills" className="bg-ink py-20 md:py-24">
+        <Container>
+          <div className="mb-10 max-w-2xl">
+            <div className="mb-3 text-xs font-bold uppercase tracking-wider text-indigo-300">Skills &amp; Tools</div>
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">What I work with</h2>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {[
+              "NetSuite", "ERP Systems", "SuiteScript", "Workflow Automation",
+              "IT Systems Administration", "SQL", "Cloud Infrastructure", "Digital Transformation",
+            ].map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/90"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* QUICK FACTS */}
-      <Section id="about" title="Quick facts" subtitle="Context that matters.">
+      <Section id="about" eyebrow="About" title="Quick facts" subtitle="Context that matters.">
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border bg-white p-5 shadow-sm">
-            <div className="mb-2 font-semibold">Experience</div>
-            <div className="space-y-2 text-sm text-gray-600">
+          <div className="rounded-xl border border-hairline bg-white p-6">
+            <div className="mb-2 font-semibold text-ink">Experience</div>
+            <div className="space-y-2 text-sm text-muted">
               <div>10+ years in tech; 5+ in NetSuite</div>
               <div>De-facto IT & Systems Admin at WOG (Dubai/JAFZA)</div>
               <div>Hands-on with Sales, Ops, Finance, Logistics</div>
             </div>
           </div>
-          <div className="rounded-2xl border bg-white p-5 shadow-sm">
-            <div className="mb-2 font-semibold">Focus</div>
-            <div className="space-y-2 text-sm text-gray-600">
+          <div className="rounded-xl border border-hairline bg-white p-6">
+            <div className="mb-2 font-semibold text-ink">Focus</div>
+            <div className="space-y-2 text-sm text-muted">
               <div>Stability first; clear docs</div>
               <div>Automation before headcount</div>
               <div>Minimal UI, fast responses</div>
             </div>
           </div>
-          <div className="rounded-2xl border bg-white p-5 shadow-sm">
-            <div className="mb-2 font-semibold">Stack</div>
-            <div className="space-y-2 text-sm text-gray-600">
+          <div className="rounded-xl border border-hairline bg-white p-6">
+            <div className="mb-2 font-semibold text-ink">Stack</div>
+            <div className="space-y-2 text-sm text-muted">
               <div>NetSuite (SuiteScript 2.x, Workflows, PDF/HTML)</div>
               <div>Google Workspace, DNS/DMARC, SSO basics</div>
               <div>HTML/CSS/JS, React, Tailwind</div>
@@ -323,12 +313,31 @@ export default function IndexPage() {
         </div>
       </Section>
 
+      {/* RESUME BANNER */}
+      <section id="resume" className="pb-16 md:pb-24">
+        <Container>
+          <div className="flex flex-wrap items-center justify-between gap-6 rounded-2xl border border-hairline bg-zinc-50 p-10 md:p-12">
+            <div>
+              <h3 className="text-xl font-extrabold text-ink">Want the full picture?</h3>
+              <p className="mt-2 text-sm text-muted">Download my resume for full work history and qualifications.</p>
+            </div>
+            <a
+              href="/CVArjayFerrer.pdf"
+              download="CVArjayFerrer.pdf"
+              className="inline-flex items-center whitespace-nowrap rounded-lg bg-ink px-7 py-3.5 text-sm font-semibold text-white hover:opacity-90"
+            >
+              Download resume ↓
+            </a>
+          </div>
+        </Container>
+      </section>
+
       {/* CONTACT */}
       <Section id="contact" title="Let's work" subtitle="Tell me what you need. I'll reply with a plan and a timeline.">
         <div className="grid items-start gap-6 md:grid-cols-5">
           <div className="md:col-span-3">
-            <div className="rounded-2xl border bg-white p-5 shadow-sm">
-              <div className="mb-3 flex items-center gap-2 text-lg font-semibold">
+            <div className="rounded-xl border border-hairline bg-white p-6">
+              <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-ink">
                 <Mail className="h-5 w-5" /> Start a project
               </div>
               <ContactForm />
@@ -336,11 +345,11 @@ export default function IndexPage() {
           </div>
 
           <div className="grid gap-6 md:col-span-2">
-            <div className="rounded-2xl border bg-white p-5 shadow-sm">
-              <div className="mb-3 flex items-center gap-2 text-lg font-semibold">
+            <div className="rounded-xl border border-hairline bg-white p-6">
+              <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-ink">
                 <Phone className="h-5 w-5" /> Contact
               </div>
-              <div className="space-y-3 text-sm text-gray-600">
+              <div className="space-y-3 text-sm text-muted">
                 <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@arjayferrer.com</div>
                 <div className="flex items-center gap-2"><Linkedin className="h-4 w-4" /> /in/jayferrer</div>
                 <div className="flex items-center gap-2"><Github className="h-4 w-4" /> github.com/arjayferrer</div>
@@ -349,9 +358,9 @@ export default function IndexPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border bg-white p-5 shadow-sm">
-              <div className="mb-2 font-semibold">One-line pitch</div>
-              <div className="text-sm text-gray-600">
+            <div className="rounded-xl border border-hairline bg-white p-6">
+              <div className="mb-2 font-semibold text-ink">One-line pitch</div>
+              <div className="text-sm text-muted">
                 Systems guy who makes NetSuite sane, keeps email clean, and ships straight-to-the-point websites.
               </div>
             </div>
@@ -360,14 +369,14 @@ export default function IndexPage() {
       </Section>
 
       {/* FOOTER */}
-      <footer className="border-t">
+      <footer className="border-t border-hairline">
         <Container>
-          <div className="flex flex-wrap items-center justify-between gap-4 py-10 text-xs text-gray-500">
-            <div>© {new Date().getFullYear()} Arjay Ferrer</div>
-            <div className="flex items-center gap-4">
-              <a href="#services" className="hover:underline">Services</a>
-              <a href="#projects" className="hover:underline">Work</a>
-              <a href="#contact" className="hover:underline">Contact</a>
+          <div className="flex flex-wrap items-center justify-between gap-4 py-10 text-xs text-muted">
+            <div>© {new Date().getFullYear()} Arjay Ferrer. All rights reserved.</div>
+            <div className="flex items-center gap-6">
+              <a href="#services" className="hover:text-ink">Services</a>
+              <a href="#projects" className="hover:text-ink">Work</a>
+              <a href="#contact" className="hover:text-ink">Contact</a>
             </div>
           </div>
         </Container>

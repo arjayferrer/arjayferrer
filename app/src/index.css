@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  --color-canvas: #fafafa;
+  --color-ink: #232529;
+  --color-muted: #6b6f76;
+  --color-hairline: #e4e4e7;
+  --color-accent: #3d4fb5;
+  --font-sans: "Inter", Helvetica, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+}
+
+::selection {
+  background: oklch(0.7 0.1 250 / 0.3);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
