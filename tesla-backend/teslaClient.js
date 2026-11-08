@@ -1,4 +1,5 @@
 import fs from "fs";
+import https from "https";
 import fetch from "node-fetch";
 
 const TOKEN_PATH = process.env.TOKEN_STORE_PATH || "./data/tesla-tokens.json";
@@ -73,11 +74,11 @@ async function getValidAccessToken() {
   return tokens.access_token;
 }
 
-async function teslaRequest(path, options = {}) {
+async function teslaRequest(path, options = {}, { base = process.env.TESLA_AUDIENCE, agent } = {}) {
   const token = await getValidAccessToken();
-  const base = process.env.TESLA_AUDIENCE;
   const res = await fetch(`${base}${path}`, {
     ...options,
+    ...(agent && { agent }),
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -101,19 +102,26 @@ export async function getVehicleData(vehicleTag) {
   return teslaRequest(`/api/1/vehicles/${vehicleTag}/vehicle_data?endpoints=charge_state;drive_state;vehicle_state`);
 }
 
-// NOTE ON SIGNED COMMANDS:
-// Tesla now requires locally-signed commands for most vehicle actions (lock, unlock,
-// climate, honk, flash) using the Tesla Vehicle Command SDK — a plain bearer-token
-// POST is no longer sufficient for these on newer firmware. This means the backend
-// needs the `tesla-http-proxy` (Tesla's official Go binary from the vehicle-command
-// repo) running alongside it, which handles the command signing using your registered
-// public/private keypair. See README "Command signing" section before wiring up
-// lock/unlock/climate/honk — read/data endpoints (vehicle_data) work with plain OAuth.
-export async function sendCommand(vehicleTag, command, body = {}) {
-  // In production this call goes to the local tesla-http-proxy (e.g. http://localhost:4443)
-  // instead of directly to Tesla, so the proxy can sign it. Placeholder below.
-  return teslaRequest(`/api/1/vehicles/${vehicleTag}/command/${command}`, {
-    method: "POST",
-    body: JSON.stringify(body),
-  });
+// Vehicle commands (lock, unlock, climate, honk, flash) must be signed with your
+// command-signing private key, which Tesla's official `tesla-http-proxy` does. The
+// Docker image runs it next to this server (see docker-entrypoint.sh) and sets
+// TESLA_PROXY_URL + TESLA_PROXY_CA. The proxy is TLS-only and addresses vehicles by
+// VIN, and it works out the right regional Fleet API host from the OAuth token.
+// Reads (vehicle_data, wake_up) don't need signing and still go straight to Tesla.
+let proxyAgent;
+function getProxyAgent() {
+  proxyAgent ??= new https.Agent({ ca: fs.readFileSync(process.env.TESLA_PROXY_CA) });
+  return proxyAgent;
+}
+
+export async function sendCommand(vin, command, body = {}) {
+  const base = process.env.TESLA_PROXY_URL;
+  if (!base || !process.env.TESLA_PROXY_CA) {
+    throw new Error("Signing proxy not configured (TESLA_PROXY_URL / TESLA_PROXY_CA). Commands need tesla-http-proxy.");
+  }
+  return teslaRequest(
+    `/api/1/vehicles/${vin}/command/${command}`,
+    { method: "POST", body: JSON.stringify(body) },
+    { base, agent: getProxyAgent() },
+  );
 }

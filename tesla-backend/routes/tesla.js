@@ -1,11 +1,7 @@
 import express from "express";
-import {
-  exchangeCodeForTokens,
-  listVehicles,
-  wakeVehicle,
-  getVehicleData,
-  sendCommand,
-} from "../teslaClient.js";
+import { exchangeCodeForTokens } from "../teslaClient.js";
+import { COMMANDS, readVehicleStatus, runCommand } from "../vehicleActions.js";
+import { handleVoice } from "../voiceAgent.js";
 
 const router = express.Router();
 
@@ -46,48 +42,41 @@ router.get("/callback", async (req, res) => {
 
 router.get("/vehicle", requireWatchKey, async (req, res) => {
   try {
-    const vehicles = await listVehicles();
-    const vehicleTag = vehicles.response[0].id_s;
-    let data;
-    try {
-      data = await getVehicleData(vehicleTag);
-    } catch {
-      // Car asleep — wake it and let the watch know to retry shortly
-      await wakeVehicle(vehicleTag);
+    const status = await readVehicleStatus();
+    if (status.asleep) {
+      // Car asleep — it's being woken; let the watch know to retry shortly
       return res.status(202).json({ status: "waking", message: "Car was asleep, waking up — retry in ~15s" });
     }
-    const d = data.response;
-    res.json({
-      batteryLevel: d.charge_state.battery_level,
-      rangeKm: Math.round(d.charge_state.battery_range * 1.60934),
-      charging: d.charge_state.charging_state,
-      locked: d.vehicle_state.locked,
-      lat: d.drive_state.latitude,
-      lon: d.drive_state.longitude,
-    });
+    res.json(status);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 router.post("/command/:action", requireWatchKey, async (req, res) => {
-  const actionMap = {
-    lock: "door_lock",
-    unlock: "door_unlock",
-    "climate-on": "auto_conditioning_start",
-    "climate-off": "auto_conditioning_stop",
-    honk: "honk_horn",
-    flash: "flash_lights",
-  };
-  const action = actionMap[req.params.action];
-  if (!action) return res.status(400).json({ error: "Unknown command" });
+  if (!(req.params.action in COMMANDS)) return res.status(400).json({ error: "Unknown command" });
 
   try {
-    const vehicles = await listVehicles();
-    const vehicleTag = vehicles.response[0].id_s;
-    const result = await sendCommand(vehicleTag, action);
-    res.json({ ok: true, result: result.response });
+    const result = await runCommand(req.params.action);
+    res.json({ ok: true, result });
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Body: { "text": "unlock the car" } -> { "reply": "...", "actions": ["unlock"] }
+router.post("/voice", requireWatchKey, async (req, res) => {
+  const text = typeof req.body?.text === "string" ? req.body.text.trim() : "";
+  if (!text || text.length > 300) {
+    return res.status(400).json({ error: "Send {\"text\": \"...\"} up to 300 characters" });
+  }
+
+  try {
+    const outcome = await handleVoice(text);
+    console.log(`[voice] "${text}" -> [${outcome.actions.join(", ")}] "${outcome.reply}"`);
+    res.json(outcome);
+  } catch (err) {
+    console.error(`[voice] "${text}" failed:`, err.message);
     res.status(500).json({ error: err.message });
   }
 });
